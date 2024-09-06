@@ -1,9 +1,9 @@
-# PrinciplesOfEmbeddedSoftware
+# Principles Of Embedded Software
 
 ### Author: Matt Hartnett
 
 ## Overview
-This repository contains all my work for the graduate-level course **Principles of Embedded Software**. The course is designed to equip students with the necessary skills for professional embedded software development, focusing on hands-on C programming and embedded system design. Through this repository, you'll find solutions to coding assignments, project work, and any additional material relevant to the course.
+This repository contains all my work for the graduate-level course **ECEN5813 Principles of Embedded Software**, taken fall of 2024 at the University of Colorado Boulder. The course is designed to equip students with the necessary skills for professional embedded software development, focusing on hands-on C programming and embedded system design. Through this repository, you'll find solutions to coding assignments, project work, and any additional material relevant to the course.
 
 ### Course Description
 Embedded systems are integral to various industries, including automotive, medicine, and industrial processes. This course emphasizes the interaction between software and hardware, with a deep dive into the C programming language as used in resource-constrained embedded environments. Key topics include:
