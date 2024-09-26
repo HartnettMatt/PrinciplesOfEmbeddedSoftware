@@ -1,0 +1,33 @@
+!SESSION 2024-09-26 07:16:03.828 -----------------------------------------------
+eclipse.buildId=Version 1.15.1
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -data /home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/PrinciplesOfEmbeddedSoftware/projects -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-09-26 07:16:07.686
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-09-26 07:16:07.686
+!MESSAGE Log4j2 initialized with config file /home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/PrinciplesOfEmbeddedSoftware/projects/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-26 07:16:09.363
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-26 07:17:49.239
+!MESSAGE Indexed 'uart-test' (23 sources, 83 headers) in 2.03 sec: 4,886 declarations; 30,549 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0056%)
+!SESSION 2024-09-26 07:30:25.912 -----------------------------------------------
+eclipse.buildId=Version 1.15.1
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-09-26 07:30:30.878
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-09-26 07:30:30.879
+!MESSAGE Log4j2 initialized with config file /home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/PrinciplesOfEmbeddedSoftware/projects/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-26 07:30:34.166
+!MESSAGE Started RMI Server, listening on port 41337
