@@ -5,7 +5,6 @@
  *      Author: Matt Hartnett and Alex Dean
  */
 
-#include <stdio.h>
 #include <stm32f091xc.h>
 #include "button.h"
 #include "utilities.h"
@@ -19,6 +18,7 @@ int button_init(void) {
 	// Configure PC13 in input mode (00=0)
 	MODIFY_FIELD(GPIOC->MODER, GPIO_MODER_MODER13, ESF_GPIO_MODER_INPUT);
 	// End of Alex Dean Code
+	MODIFY_FIELD(GPIOC->PUPDR, GPIO_PUPDR_PUPDR13, B1_PULL_VALUE);
 
 	return 0;
 

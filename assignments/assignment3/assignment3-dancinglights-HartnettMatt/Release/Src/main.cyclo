@@ -1,4 +1,4 @@
-../Src/main.c:27:5:init	1
-../Src/main.c:52:5:sequence1	3
-../Src/main.c:66:5:sequence2	3
-../Src/main.c:80:5:main	1
+../Src/main.c:43:5:init	1
+../Src/main.c:76:5:sequence1	3
+../Src/main.c:101:5:sequence2	3
+../Src/main.c:115:5:main	1

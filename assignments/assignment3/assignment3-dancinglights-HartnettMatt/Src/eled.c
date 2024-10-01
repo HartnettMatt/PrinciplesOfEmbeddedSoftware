@@ -5,7 +5,7 @@
  *      Author: Matt Hartnett
  */
 
-#include <stdio.h>
+#include "log.h"
 #include <stm32f091xc.h>
 #include "eled.h"
 #include "utilities.h"
@@ -23,17 +23,13 @@ int eled_init(void) {
 }
 
 int eled_on(void){
-#ifdef DEBUG
-	printf("ELED ON\r\n");
-#endif // DEBUG
+	LOG("ELED ON\r\n");
 	GPIOB->BSRR |= PB3_ON_MSK;
 	return 0;
 }
 
 int eled_off(void){
-#ifdef DEBUG
-	printf("ELED OFF\r\n");
-#endif // DEBUG
+	LOG("ELED OFF\r\n");
 	GPIOB->BSRR |= PB3_OFF_MSK;
 	return 0;
 }

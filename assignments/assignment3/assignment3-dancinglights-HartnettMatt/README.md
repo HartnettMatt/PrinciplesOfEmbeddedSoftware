@@ -73,12 +73,20 @@ As specified in the rubric for this assignment, several key details about the co
 The sizes and addresses are as reported by the ARM version of objdump. The size of the stack was found in flash linker script.
 
 # Review Comment 1
-* Response
+* I saw your placing .h under Inc. However, it seems to me that Professor mentioned to place all produced files in this assignment under Src, but I may be wrong.
+* <b>Response:</b> I think that is correct, so I moved my .h files into the src directory.
 # Review Comment 2
-* Response
+* In init() function, I would refactor to reduce the amount of duplicated lines (ex. maybe have a blink function that takes LED as argument).
+* <b>Response:</b> I don't think that the number of duplicated lines is that much of a problem and I think it makes the code more readable and maintainable.
 # Review Comment 3
-* Response
+* Instead of using #define for printf in debug, I would implement the LOG preprocessor directive showed in class. (Just for additional elegance).
+* <b>Response:</b> Done.
 # Review Comment 4
-* Response
+* In delay() function, the statement int delay = delay_msec is a bit redundant, you could just delay_msec since it is called by value.
+* <b>Response:</b> Good point, delay_msec has been removed.
 # Review Comment 5
-* Response
+* in button_init(), I would also set the internal pull up to avoid unpredictable behavior
+* <b>Response:</b> Thank you, I forgot to do so, that is now added in.
+# Review Comment 6
+* Overall, I think your code is elegantly written and easy to follow. Nice work!
+* <b>Response:</b> Thanks!

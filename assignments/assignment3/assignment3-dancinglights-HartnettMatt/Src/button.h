@@ -10,6 +10,7 @@
 
 
 #define B1_IN_MSK		(GPIO_IDR_13)
+#define B1_PULL_VALUE 1
 
 /*
  * Initializes the user button (B1)

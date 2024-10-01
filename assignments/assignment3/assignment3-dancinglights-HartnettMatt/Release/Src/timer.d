@@ -1,3 +1,3 @@
-Src/timer.o: ../Src/timer.c ../Inc/timer.h ../Inc/button.h
-../Inc/timer.h:
-../Inc/button.h:
+Src/timer.o: ../Src/timer.c ../Src/timer.h ../Src/button.h
+../Src/timer.h:
+../Src/button.h:

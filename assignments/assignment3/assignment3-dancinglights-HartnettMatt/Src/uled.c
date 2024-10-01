@@ -5,7 +5,7 @@
  *      Author: Matt Hartnett and Alex Dean
  */
 
-#include <stdio.h>
+#include "log.h"
 #include <stm32f091xc.h>
 #include "uled.h"
 #include "utilities.h"
@@ -27,17 +27,13 @@ int uled_init(void) {
 }
 
 int uled_on(void){
-#ifdef DEBUG
-	printf("ULED ON\r\n");
-#endif // DEBUG
+	LOG("ULED ON\r\n");
 	GPIOA->BSRR |= LD2_ON_MSK;
 	return 0;
 }
 
 int uled_off(void){
-#ifdef DEBUG
-	printf("ULED OFF\r\n");
-#endif // DEBUG
+	LOG("ULED OFF\r\n");
 	GPIOA->BSRR |= LD2_OFF_MSK;
 	return 0;
 }

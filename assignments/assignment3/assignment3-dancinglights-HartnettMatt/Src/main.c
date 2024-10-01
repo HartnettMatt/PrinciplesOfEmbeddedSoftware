@@ -16,8 +16,8 @@
  ******************************************************************************
  */
 
-#include <stdio.h>
 #include <stm32f091xc.h>
+#include "log.h"
 #include "uled.h"
 #include "button.h"
 #include "utilities.h"
@@ -119,9 +119,7 @@ int main(void) {
 	 * the ST-Link COM port setting.
 	 * Clocks: Processor = 48 Mhz. AHB = 48 MHz. APB = 24 MHz.
 	 */
-#ifdef DEBUG
-	printf("Hello World !\r\n");
-#endif //DEBUG
+	LOG("Hello World !\r\n");
 	init();
 
 	// Loop infinitely - if one sequence returns, switch to the other
