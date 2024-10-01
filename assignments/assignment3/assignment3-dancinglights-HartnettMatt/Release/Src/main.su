@@ -1,0 +1,4 @@
+../Src/main.c:27:5:init	8	static
+../Src/main.c:52:5:sequence1	8	static
+../Src/main.c:66:5:sequence2	8	static
+../Src/main.c:80:5:main	8	static

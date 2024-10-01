@@ -1,0 +1,2 @@
+../Src/button.c:13:5:button_init	8	static
+../Src/button.c:27:5:read_button	8	static
