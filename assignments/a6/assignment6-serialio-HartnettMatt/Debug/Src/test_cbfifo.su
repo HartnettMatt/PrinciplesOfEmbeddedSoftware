@@ -1,0 +1,5 @@
+../Src/test_cbfifo.c:41:5:byte_comp	24	static
+../Src/test_cbfifo.c:55:5:array_equal	32	static
+../Src/test_cbfifo.c:70:9:test_cbfifo_enqueue	24	static
+../Src/test_cbfifo.c:163:9:test_cbfifo_dequeue	296	static
+../Src/test_cbfifo.c:279:9:test_cbfifo	16	static

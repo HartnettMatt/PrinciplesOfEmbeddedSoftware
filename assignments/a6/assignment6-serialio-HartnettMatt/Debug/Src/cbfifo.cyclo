@@ -1,0 +1,8 @@
+../Src/cbfifo.c:25:8:cbfifo_enqueue	7
+../Src/cbfifo.c:52:8:cbfifo_dequeue	6
+../Src/cbfifo.c:76:8:cbfifo_peek	2
+../Src/cbfifo.c:86:8:cbfifo_length	3
+../Src/cbfifo.c:100:8:cbfifo_capacity	1
+../Src/cbfifo.c:105:6:cbfifo_state_dump	1
+../Src/cbfifo.c:112:6:cbfifo_data_dump	3
+../Src/cbfifo.c:123:6:cbfifo_reset	1

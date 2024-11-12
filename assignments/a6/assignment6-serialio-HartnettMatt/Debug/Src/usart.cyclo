@@ -1,0 +1,10 @@
+../CMSIS/core_cm0.h:623:22:__NVIC_EnableIRQ	2
+../CMSIS/core_cm0.h:714:22:__NVIC_ClearPendingIRQ	2
+../CMSIS/core_cm0.h:732:22:__NVIC_SetPriority	2
+../Src/usart.c:36:5:usart_init	1
+../Src/usart.c:81:6:USART2_IRQHandler	5
+../Src/usart.c:102:6:usart_transmit	3
+../Src/usart.c:113:6:usart_receive_blocking	3
+../Src/usart.c:124:9:usart_receive	2
+../Src/usart.c:130:5:__io_putchar	1
+../Src/usart.c:136:5:__io_getchar	1

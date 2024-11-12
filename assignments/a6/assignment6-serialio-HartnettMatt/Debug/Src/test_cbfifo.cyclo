@@ -1,0 +1,5 @@
+../Src/test_cbfifo.c:41:5:byte_comp	2
+../Src/test_cbfifo.c:55:5:array_equal	3
+../Src/test_cbfifo.c:70:9:test_cbfifo_enqueue	17
+../Src/test_cbfifo.c:163:9:test_cbfifo_dequeue	23
+../Src/test_cbfifo.c:279:9:test_cbfifo	4
