@@ -1,0 +1,2 @@
+../Src/analysis.c:13:6:analyze	48	static
+../Src/analysis.c:41:6:analyze_and_print	64	static
