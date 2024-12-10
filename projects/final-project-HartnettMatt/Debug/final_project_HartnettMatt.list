@@ -7,45 +7,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         000070f0  080000c0  080000c0  000010c0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000768  080071b0  080071b0  000081b0  2**3
+  2 .rodata       00000760  080071b0  080071b0  000081b0  2**3
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08007918  08007918  00009070  2**0
+  3 .ARM.extab    00000000  08007910  08007910  00009070  2**0
                   CONTENTS
-  4 .ARM          00000000  08007918  08007918  00009070  2**0
+  4 .ARM          00000000  08007910  08007910  00009070  2**0
                   CONTENTS
-  5 .preinit_array 00000000  08007918  08007918  00009070  2**0
+  5 .preinit_array 00000000  08007910  08007910  00009070  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08007918  08007918  00008918  2**2
+  6 .init_array   00000004  08007910  08007910  00008910  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  0800791c  0800791c  0000891c  2**2
+  7 .fini_array   00000004  08007914  08007914  00008914  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000070  20000000  08007920  00009000  2**3
+  8 .data         00000070  20000000  08007918  00009000  2**3
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000390  20000070  08007990  00009070  2**2
+  9 .bss          00000390  20000070  08007988  00009070  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000400  08007990  00009400  2**0
+ 10 ._user_heap_stack 00000600  20000400  08007988  00009400  2**0
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  00009070  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000037e2  00000000  00000000  00009098  2**0
+ 12 .debug_info   000037d9  00000000  00000000  00009098  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001117  00000000  00000000  0000c87a  2**0
+ 13 .debug_abbrev 00001116  00000000  00000000  0000c871  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000370  00000000  00000000  0000d998  2**3
+ 14 .debug_aranges 00000370  00000000  00000000  0000d988  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 0000025d  00000000  00000000  0000dd08  2**0
+ 15 .debug_rnglists 0000025d  00000000  00000000  0000dcf8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00015457  00000000  00000000  0000df65  2**0
+ 16 .debug_macro  00015469  00000000  00000000  0000df55  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00005036  00000000  00000000  000233bc  2**0
+ 17 .debug_line   0000503d  00000000  00000000  000233be  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0006a114  00000000  00000000  000283f2  2**0
+ 18 .debug_str    0006a169  00000000  00000000  000283fb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00092506  2**0
+ 19 .comment      00000043  00000000  00000000  00092564  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000019cc  00000000  00000000  0009254c  2**2
+ 20 .debug_frame  000019cc  00000000  00000000  000925a8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 000000af  00000000  00000000  00093f18  2**0
+ 21 .debug_line_str 000000af  00000000  00000000  00093f74  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1288,8 +1288,8 @@ Disassembly of section .text:
  8000a3a:	e769      	b.n	8000910 <__aeabi_fdiv+0x104>
  8000a3c:	4644      	mov	r4, r8
  8000a3e:	e7ad      	b.n	800099c <__aeabi_fdiv+0x190>
- 8000a40:	08007314 	.word	0x08007314
- 8000a44:	08007354 	.word	0x08007354
+ 8000a40:	0800730c 	.word	0x0800730c
+ 8000a44:	0800734c 	.word	0x0800734c
  8000a48:	f7ffffff 	.word	0xf7ffffff
 
 08000a4c <__eqsf2>:
@@ -3712,7 +3712,7 @@ Disassembly of section .text:
  8001d3a:	e689      	b.n	8001a50 <__aeabi_ddiv+0x90>
  8001d3c:	000007ff 	.word	0x000007ff
  8001d40:	fffffc01 	.word	0xfffffc01
- 8001d44:	08007390 	.word	0x08007390
+ 8001d44:	08007388 	.word	0x08007388
  8001d48:	000003ff 	.word	0x000003ff
  8001d4c:	feffffff 	.word	0xfeffffff
  8001d50:	000007fe 	.word	0x000007fe
@@ -7280,10 +7280,10 @@ void SysTick_Handler(void) {
  8003716:	681b      	ldr	r3, [r3, #0]
  8003718:	2b02      	cmp	r3, #2
  800371a:	d10d      	bne.n	8003738 <SysTick_Handler+0x58>
-        if(tone_counter < 15){
+        if (tone_counter < TONE_PERIOD) {
  800371c:	4b0d      	ldr	r3, [pc, #52]	@ (8003754 <SysTick_Handler+0x74>)
  800371e:	681b      	ldr	r3, [r3, #0]
- 8003720:	2b0e      	cmp	r3, #14
+ 8003720:	2b0c      	cmp	r3, #12
  8003722:	dc05      	bgt.n	8003730 <SysTick_Handler+0x50>
             tone_counter++;
  8003724:	4b0b      	ldr	r3, [pc, #44]	@ (8003754 <SysTick_Handler+0x74>)
@@ -7434,9 +7434,9 @@ int main(void) {
 
     // Generate tone buffer first - only do once, a lot of math involved
     int sample_cnt = compute_sine_wave(C5_FREQ, c4_samples, SINE_BUFFER_SIZE, DAC_SAMPLE_RATE, DAC_RESOLUTION);
- 800380a:	4a5a      	ldr	r2, [pc, #360]	@ (8003974 <main+0x170>)
- 800380c:	495a      	ldr	r1, [pc, #360]	@ (8003978 <main+0x174>)
- 800380e:	485b      	ldr	r0, [pc, #364]	@ (800397c <main+0x178>)
+ 800380a:	4a5b      	ldr	r2, [pc, #364]	@ (8003978 <main+0x174>)
+ 800380c:	495b      	ldr	r1, [pc, #364]	@ (800397c <main+0x178>)
+ 800380e:	485c      	ldr	r0, [pc, #368]	@ (8003980 <main+0x17c>)
  8003810:	230c      	movs	r3, #12
  8003812:	9300      	str	r3, [sp, #0]
  8003814:	0013      	movs	r3, r2
@@ -7446,219 +7446,222 @@ int main(void) {
  800381e:	2488      	movs	r4, #136	@ 0x88
  8003820:	193a      	adds	r2, r7, r4
  8003822:	6013      	str	r3, [r2, #0]
+    int sensor_val = 0;
+ 8003824:	2300      	movs	r3, #0
+ 8003826:	2284      	movs	r2, #132	@ 0x84
+ 8003828:	18ba      	adds	r2, r7, r2
+ 800382a:	6013      	str	r3, [r2, #0]
 
     // Initialize most peripherals
     usart_init();
- 8003824:	f000 fbec 	bl	8004000 <usart_init>
+ 800382c:	f000 fbe8 	bl	8004000 <usart_init>
     uled_init();
- 8003828:	f000 fb20 	bl	8003e6c <uled_init>
+ 8003830:	f000 fb1c 	bl	8003e6c <uled_init>
     button_init();
- 800382c:	f7ff fdac 	bl	8003388 <button_init>
+ 8003834:	f7ff fda8 	bl	8003388 <button_init>
     analog_out_init(c4_samples, sample_cnt);
- 8003830:	193b      	adds	r3, r7, r4
- 8003832:	681b      	ldr	r3, [r3, #0]
- 8003834:	b29a      	uxth	r2, r3
- 8003836:	4b50      	ldr	r3, [pc, #320]	@ (8003978 <main+0x174>)
- 8003838:	0011      	movs	r1, r2
- 800383a:	0018      	movs	r0, r3
- 800383c:	f7ff fd08 	bl	8003250 <analog_out_init>
+ 8003838:	193b      	adds	r3, r7, r4
+ 800383a:	681b      	ldr	r3, [r3, #0]
+ 800383c:	b29a      	uxth	r2, r3
+ 800383e:	4b4f      	ldr	r3, [pc, #316]	@ (800397c <main+0x178>)
+ 8003840:	0011      	movs	r1, r2
+ 8003842:	0018      	movs	r0, r3
+ 8003844:	f7ff fd04 	bl	8003250 <analog_out_init>
     dig_in_init();
- 8003840:	f7ff fea2 	bl	8003588 <dig_in_init>
+ 8003848:	f7ff fe9e 	bl	8003588 <dig_in_init>
     set_blk_size(sample_cnt);
- 8003844:	193b      	adds	r3, r7, r4
- 8003846:	681b      	ldr	r3, [r3, #0]
- 8003848:	0018      	movs	r0, r3
- 800384a:	f7ff fcaf 	bl	80031ac <set_blk_size>
+ 800384c:	193b      	adds	r3, r7, r4
+ 800384e:	681b      	ldr	r3, [r3, #0]
+ 8003850:	0018      	movs	r0, r3
+ 8003852:	f7ff fcab 	bl	80031ac <set_blk_size>
     // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
     // Ask user for system parameters:
     char str_buf[TXT_BUFFER_SIZE]; // Recieve string buffer
     int str_size;
     int time = -1;
- 800384e:	2301      	movs	r3, #1
- 8003850:	425b      	negs	r3, r3
- 8003852:	228c      	movs	r2, #140	@ 0x8c
- 8003854:	18ba      	adds	r2, r7, r2
- 8003856:	6013      	str	r3, [r2, #0]
+ 8003856:	2301      	movs	r3, #1
+ 8003858:	425b      	negs	r3, r3
+ 800385a:	228c      	movs	r2, #140	@ 0x8c
+ 800385c:	18ba      	adds	r2, r7, r2
+ 800385e:	6013      	str	r3, [r2, #0]
     // Loop until a valid input is recieved:
     while (time == -1) {
- 8003858:	e017      	b.n	800388a <main+0x86>
+ 8003860:	e017      	b.n	8003892 <main+0x8e>
         printf("What time is it?\r\n");
- 800385a:	4b49      	ldr	r3, [pc, #292]	@ (8003980 <main+0x17c>)
- 800385c:	0018      	movs	r0, r3
- 800385e:	f001 f823 	bl	80048a8 <puts>
+ 8003862:	4b48      	ldr	r3, [pc, #288]	@ (8003984 <main+0x180>)
+ 8003864:	0018      	movs	r0, r3
+ 8003866:	f001 f81f 	bl	80048a8 <puts>
         str_size = user_input(str_buf, TXT_BUFFER_SIZE);
- 8003862:	003b      	movs	r3, r7
- 8003864:	2180      	movs	r1, #128	@ 0x80
- 8003866:	0018      	movs	r0, r3
- 8003868:	f7ff ff76 	bl	8003758 <user_input>
- 800386c:	0003      	movs	r3, r0
- 800386e:	2280      	movs	r2, #128	@ 0x80
- 8003870:	18b9      	adds	r1, r7, r2
- 8003872:	600b      	str	r3, [r1, #0]
+ 800386a:	003b      	movs	r3, r7
+ 800386c:	2180      	movs	r1, #128	@ 0x80
+ 800386e:	0018      	movs	r0, r3
+ 8003870:	f7ff ff72 	bl	8003758 <user_input>
+ 8003874:	0003      	movs	r3, r0
+ 8003876:	2280      	movs	r2, #128	@ 0x80
+ 8003878:	18b9      	adds	r1, r7, r2
+ 800387a:	600b      	str	r3, [r1, #0]
         time = process_time(str_buf, str_size);
- 8003874:	18bb      	adds	r3, r7, r2
- 8003876:	681a      	ldr	r2, [r3, #0]
- 8003878:	003b      	movs	r3, r7
- 800387a:	0011      	movs	r1, r2
- 800387c:	0018      	movs	r0, r3
- 800387e:	f000 f891 	bl	80039a4 <process_time>
- 8003882:	0003      	movs	r3, r0
- 8003884:	228c      	movs	r2, #140	@ 0x8c
- 8003886:	18ba      	adds	r2, r7, r2
- 8003888:	6013      	str	r3, [r2, #0]
+ 800387c:	18bb      	adds	r3, r7, r2
+ 800387e:	681a      	ldr	r2, [r3, #0]
+ 8003880:	003b      	movs	r3, r7
+ 8003882:	0011      	movs	r1, r2
+ 8003884:	0018      	movs	r0, r3
+ 8003886:	f000 f88d 	bl	80039a4 <process_time>
+ 800388a:	0003      	movs	r3, r0
+ 800388c:	228c      	movs	r2, #140	@ 0x8c
+ 800388e:	18ba      	adds	r2, r7, r2
+ 8003890:	6013      	str	r3, [r2, #0]
     while (time == -1) {
- 800388a:	218c      	movs	r1, #140	@ 0x8c
- 800388c:	187b      	adds	r3, r7, r1
- 800388e:	681b      	ldr	r3, [r3, #0]
- 8003890:	3301      	adds	r3, #1
- 8003892:	d0e2      	beq.n	800385a <main+0x56>
+ 8003892:	218c      	movs	r1, #140	@ 0x8c
+ 8003894:	187b      	adds	r3, r7, r1
+ 8003896:	681b      	ldr	r3, [r3, #0]
+ 8003898:	3301      	adds	r3, #1
+ 800389a:	d0e2      	beq.n	8003862 <main+0x5e>
     }
     // Needs to be multiplied by 10 due to systick occuring every 100ms
     // Systick occurs every 100ms to maintain responsivness when turning off the alarm
     current_time = 10 * time;
- 8003894:	187b      	adds	r3, r7, r1
- 8003896:	681a      	ldr	r2, [r3, #0]
- 8003898:	0013      	movs	r3, r2
- 800389a:	009b      	lsls	r3, r3, #2
- 800389c:	189b      	adds	r3, r3, r2
- 800389e:	005b      	lsls	r3, r3, #1
- 80038a0:	001a      	movs	r2, r3
- 80038a2:	4b38      	ldr	r3, [pc, #224]	@ (8003984 <main+0x180>)
- 80038a4:	601a      	str	r2, [r3, #0]
+ 800389c:	187b      	adds	r3, r7, r1
+ 800389e:	681a      	ldr	r2, [r3, #0]
+ 80038a0:	0013      	movs	r3, r2
+ 80038a2:	009b      	lsls	r3, r3, #2
+ 80038a4:	189b      	adds	r3, r3, r2
+ 80038a6:	005b      	lsls	r3, r3, #1
+ 80038a8:	001a      	movs	r2, r3
+ 80038aa:	4b37      	ldr	r3, [pc, #220]	@ (8003988 <main+0x184>)
+ 80038ac:	601a      	str	r2, [r3, #0]
     time = -1;
- 80038a6:	2301      	movs	r3, #1
- 80038a8:	425b      	negs	r3, r3
- 80038aa:	187a      	adds	r2, r7, r1
- 80038ac:	6013      	str	r3, [r2, #0]
+ 80038ae:	2301      	movs	r3, #1
+ 80038b0:	425b      	negs	r3, r3
+ 80038b2:	187a      	adds	r2, r7, r1
+ 80038b4:	6013      	str	r3, [r2, #0]
     while (time == -1) {
- 80038ae:	e017      	b.n	80038e0 <main+0xdc>
+ 80038b6:	e017      	b.n	80038e8 <main+0xe4>
         printf("When do you want to wake up?\r\n");
- 80038b0:	4b35      	ldr	r3, [pc, #212]	@ (8003988 <main+0x184>)
- 80038b2:	0018      	movs	r0, r3
- 80038b4:	f000 fff8 	bl	80048a8 <puts>
+ 80038b8:	4b34      	ldr	r3, [pc, #208]	@ (800398c <main+0x188>)
+ 80038ba:	0018      	movs	r0, r3
+ 80038bc:	f000 fff4 	bl	80048a8 <puts>
         str_size = user_input(str_buf, TXT_BUFFER_SIZE);
- 80038b8:	003b      	movs	r3, r7
- 80038ba:	2180      	movs	r1, #128	@ 0x80
- 80038bc:	0018      	movs	r0, r3
- 80038be:	f7ff ff4b 	bl	8003758 <user_input>
- 80038c2:	0003      	movs	r3, r0
- 80038c4:	2280      	movs	r2, #128	@ 0x80
- 80038c6:	18b9      	adds	r1, r7, r2
- 80038c8:	600b      	str	r3, [r1, #0]
+ 80038c0:	003b      	movs	r3, r7
+ 80038c2:	2180      	movs	r1, #128	@ 0x80
+ 80038c4:	0018      	movs	r0, r3
+ 80038c6:	f7ff ff47 	bl	8003758 <user_input>
+ 80038ca:	0003      	movs	r3, r0
+ 80038cc:	2280      	movs	r2, #128	@ 0x80
+ 80038ce:	18b9      	adds	r1, r7, r2
+ 80038d0:	600b      	str	r3, [r1, #0]
         time = process_time(str_buf, str_size);
- 80038ca:	18bb      	adds	r3, r7, r2
- 80038cc:	681a      	ldr	r2, [r3, #0]
- 80038ce:	003b      	movs	r3, r7
- 80038d0:	0011      	movs	r1, r2
- 80038d2:	0018      	movs	r0, r3
- 80038d4:	f000 f866 	bl	80039a4 <process_time>
- 80038d8:	0003      	movs	r3, r0
- 80038da:	228c      	movs	r2, #140	@ 0x8c
- 80038dc:	18ba      	adds	r2, r7, r2
- 80038de:	6013      	str	r3, [r2, #0]
+ 80038d2:	18bb      	adds	r3, r7, r2
+ 80038d4:	681a      	ldr	r2, [r3, #0]
+ 80038d6:	003b      	movs	r3, r7
+ 80038d8:	0011      	movs	r1, r2
+ 80038da:	0018      	movs	r0, r3
+ 80038dc:	f000 f862 	bl	80039a4 <process_time>
+ 80038e0:	0003      	movs	r3, r0
+ 80038e2:	228c      	movs	r2, #140	@ 0x8c
+ 80038e4:	18ba      	adds	r2, r7, r2
+ 80038e6:	6013      	str	r3, [r2, #0]
     while (time == -1) {
- 80038e0:	228c      	movs	r2, #140	@ 0x8c
- 80038e2:	18bb      	adds	r3, r7, r2
- 80038e4:	681b      	ldr	r3, [r3, #0]
- 80038e6:	3301      	adds	r3, #1
- 80038e8:	d0e2      	beq.n	80038b0 <main+0xac>
+ 80038e8:	228c      	movs	r2, #140	@ 0x8c
+ 80038ea:	18bb      	adds	r3, r7, r2
+ 80038ec:	681b      	ldr	r3, [r3, #0]
+ 80038ee:	3301      	adds	r3, #1
+ 80038f0:	d0e2      	beq.n	80038b8 <main+0xb4>
     }
     alarm_time = 10 * time;
- 80038ea:	18bb      	adds	r3, r7, r2
- 80038ec:	681a      	ldr	r2, [r3, #0]
- 80038ee:	0013      	movs	r3, r2
- 80038f0:	009b      	lsls	r3, r3, #2
- 80038f2:	189b      	adds	r3, r3, r2
- 80038f4:	005b      	lsls	r3, r3, #1
- 80038f6:	001a      	movs	r2, r3
- 80038f8:	4b24      	ldr	r3, [pc, #144]	@ (800398c <main+0x188>)
- 80038fa:	601a      	str	r2, [r3, #0]
+ 80038f2:	18bb      	adds	r3, r7, r2
+ 80038f4:	681a      	ldr	r2, [r3, #0]
+ 80038f6:	0013      	movs	r3, r2
+ 80038f8:	009b      	lsls	r3, r3, #2
+ 80038fa:	189b      	adds	r3, r3, r2
+ 80038fc:	005b      	lsls	r3, r3, #1
+ 80038fe:	001a      	movs	r2, r3
+ 8003900:	4b23      	ldr	r3, [pc, #140]	@ (8003990 <main+0x18c>)
+ 8003902:	601a      	str	r2, [r3, #0]
     printf("Goodnight! See you at %s\r\n", str_buf);
- 80038fc:	003a      	movs	r2, r7
- 80038fe:	4b24      	ldr	r3, [pc, #144]	@ (8003990 <main+0x18c>)
- 8003900:	0011      	movs	r1, r2
- 8003902:	0018      	movs	r0, r3
- 8003904:	f000 ff6a 	bl	80047dc <iprintf>
+ 8003904:	003a      	movs	r2, r7
+ 8003906:	4b23      	ldr	r3, [pc, #140]	@ (8003994 <main+0x190>)
+ 8003908:	0011      	movs	r1, r2
+ 800390a:	0018      	movs	r0, r3
+ 800390c:	f000 ff66 	bl	80047dc <iprintf>
 
     Init_SysTick();
- 8003908:	f7ff fed2 	bl	80036b0 <Init_SysTick>
+ 8003910:	f7ff fece 	bl	80036b0 <Init_SysTick>
     // TODO: Figure out sleep and such
 
     while (1) {
         // TODO: Add logic for checking time and resetting and such
-        int val = dig_in_read();
- 800390c:	f7ff fe54 	bl	80035b8 <dig_in_read>
- 8003910:	0003      	movs	r3, r0
- 8003912:	2284      	movs	r2, #132	@ 0x84
- 8003914:	18b9      	adds	r1, r7, r2
- 8003916:	600b      	str	r3, [r1, #0]
-        printf("%d, ", val);
- 8003918:	18bb      	adds	r3, r7, r2
- 800391a:	681a      	ldr	r2, [r3, #0]
- 800391c:	4b1d      	ldr	r3, [pc, #116]	@ (8003994 <main+0x190>)
- 800391e:	0011      	movs	r1, r2
- 8003920:	0018      	movs	r0, r3
- 8003922:	f000 ff5b 	bl	80047dc <iprintf>
+
         if (alarm_flag == 1) {
- 8003926:	4b1c      	ldr	r3, [pc, #112]	@ (8003998 <main+0x194>)
- 8003928:	681b      	ldr	r3, [r3, #0]
- 800392a:	2b01      	cmp	r3, #1
- 800392c:	d109      	bne.n	8003942 <main+0x13e>
+ 8003914:	4b20      	ldr	r3, [pc, #128]	@ (8003998 <main+0x194>)
+ 8003916:	681b      	ldr	r3, [r3, #0]
+ 8003918:	2b01      	cmp	r3, #1
+ 800391a:	d109      	bne.n	8003930 <main+0x12c>
             printf("Good morning!");
- 800392e:	4b1b      	ldr	r3, [pc, #108]	@ (800399c <main+0x198>)
- 8003930:	0018      	movs	r0, r3
- 8003932:	f000 ff53 	bl	80047dc <iprintf>
+ 800391c:	4b1f      	ldr	r3, [pc, #124]	@ (800399c <main+0x198>)
+ 800391e:	0018      	movs	r0, r3
+ 8003920:	f000 ff5c 	bl	80047dc <iprintf>
             // Start the alarm
             analog_out_start();
- 8003936:	f7ff fcf7 	bl	8003328 <analog_out_start>
+ 8003924:	f7ff fd00 	bl	8003328 <analog_out_start>
             alarm_flag = 2;
- 800393a:	4b17      	ldr	r3, [pc, #92]	@ (8003998 <main+0x194>)
- 800393c:	2202      	movs	r2, #2
- 800393e:	601a      	str	r2, [r3, #0]
- 8003940:	e7e4      	b.n	800390c <main+0x108>
+ 8003928:	4b1b      	ldr	r3, [pc, #108]	@ (8003998 <main+0x194>)
+ 800392a:	2202      	movs	r2, #2
+ 800392c:	601a      	str	r2, [r3, #0]
+ 800392e:	e7f1      	b.n	8003914 <main+0x110>
         } else if (alarm_flag == 2) {
- 8003942:	4b15      	ldr	r3, [pc, #84]	@ (8003998 <main+0x194>)
- 8003944:	681b      	ldr	r3, [r3, #0]
- 8003946:	2b02      	cmp	r3, #2
- 8003948:	d1e0      	bne.n	800390c <main+0x108>
+ 8003930:	4b19      	ldr	r3, [pc, #100]	@ (8003998 <main+0x194>)
+ 8003932:	681b      	ldr	r3, [r3, #0]
+ 8003934:	2b02      	cmp	r3, #2
+ 8003936:	d1ed      	bne.n	8003914 <main+0x110>
+            sensor_val = dig_in_read();
+ 8003938:	f7ff fe3e 	bl	80035b8 <dig_in_read>
+ 800393c:	0003      	movs	r3, r0
+ 800393e:	2484      	movs	r4, #132	@ 0x84
+ 8003940:	193a      	adds	r2, r7, r4
+ 8003942:	6013      	str	r3, [r2, #0]
             // Alarm turn off condition
-            if(read_button() == 1){
- 800394a:	f7ff fd3f 	bl	80033cc <read_button>
- 800394e:	0003      	movs	r3, r0
- 8003950:	2b01      	cmp	r3, #1
- 8003952:	d105      	bne.n	8003960 <main+0x15c>
+            if (read_button() == 1 || sensor_val == 1) {
+ 8003944:	f7ff fd42 	bl	80033cc <read_button>
+ 8003948:	0003      	movs	r3, r0
+ 800394a:	2b01      	cmp	r3, #1
+ 800394c:	d003      	beq.n	8003956 <main+0x152>
+ 800394e:	193b      	adds	r3, r7, r4
+ 8003950:	681b      	ldr	r3, [r3, #0]
+ 8003952:	2b01      	cmp	r3, #1
+ 8003954:	d105      	bne.n	8003962 <main+0x15e>
                 analog_out_stop();
- 8003954:	f7ff fcfe 	bl	8003354 <analog_out_stop>
+ 8003956:	f7ff fcfd 	bl	8003354 <analog_out_stop>
                 alarm_flag = 0;
- 8003958:	4b0f      	ldr	r3, [pc, #60]	@ (8003998 <main+0x194>)
- 800395a:	2200      	movs	r2, #0
- 800395c:	601a      	str	r2, [r3, #0]
- 800395e:	e7d5      	b.n	800390c <main+0x108>
+ 800395a:	4b0f      	ldr	r3, [pc, #60]	@ (8003998 <main+0x194>)
+ 800395c:	2200      	movs	r2, #0
+ 800395e:	601a      	str	r2, [r3, #0]
+ 8003960:	e008      	b.n	8003974 <main+0x170>
             } else {
-                if(tone_counter < 10){
- 8003960:	4b0f      	ldr	r3, [pc, #60]	@ (80039a0 <main+0x19c>)
- 8003962:	681b      	ldr	r3, [r3, #0]
- 8003964:	2b09      	cmp	r3, #9
- 8003966:	dc02      	bgt.n	800396e <main+0x16a>
+                if (tone_counter < TONE_ON_TIME) {
+ 8003962:	4b0f      	ldr	r3, [pc, #60]	@ (80039a0 <main+0x19c>)
+ 8003964:	681b      	ldr	r3, [r3, #0]
+ 8003966:	2b07      	cmp	r3, #7
+ 8003968:	dc02      	bgt.n	8003970 <main+0x16c>
                     analog_out_start();
- 8003968:	f7ff fcde 	bl	8003328 <analog_out_start>
- 800396c:	e7ce      	b.n	800390c <main+0x108>
+ 800396a:	f7ff fcdd 	bl	8003328 <analog_out_start>
+ 800396e:	e7d1      	b.n	8003914 <main+0x110>
                 } else {
                     analog_out_stop();
- 800396e:	f7ff fcf1 	bl	8003354 <analog_out_stop>
-    while (1) {
- 8003972:	e7cb      	b.n	800390c <main+0x108>
- 8003974:	0000bb80 	.word	0x0000bb80
- 8003978:	20000090 	.word	0x20000090
- 800397c:	0000020b 	.word	0x0000020b
- 8003980:	080071b8 	.word	0x080071b8
- 8003984:	20000190 	.word	0x20000190
- 8003988:	080071cc 	.word	0x080071cc
- 800398c:	20000194 	.word	0x20000194
- 8003990:	080071ec 	.word	0x080071ec
- 8003994:	08007208 	.word	0x08007208
+ 8003970:	f7ff fcf0 	bl	8003354 <analog_out_stop>
+        if (alarm_flag == 1) {
+ 8003974:	e7ce      	b.n	8003914 <main+0x110>
+ 8003976:	46c0      	nop			@ (mov r8, r8)
+ 8003978:	0000bb80 	.word	0x0000bb80
+ 800397c:	20000090 	.word	0x20000090
+ 8003980:	0000020b 	.word	0x0000020b
+ 8003984:	080071b8 	.word	0x080071b8
+ 8003988:	20000190 	.word	0x20000190
+ 800398c:	080071cc 	.word	0x080071cc
+ 8003990:	20000194 	.word	0x20000194
+ 8003994:	080071ec 	.word	0x080071ec
  8003998:	20000198 	.word	0x20000198
- 800399c:	08007210 	.word	0x08007210
+ 800399c:	08007208 	.word	0x08007208
  80039a0:	2000019c 	.word	0x2000019c
 
 080039a4 <process_time>:
@@ -8025,17 +8028,17 @@ int process_time(char *input, size_t nbytes) {
  8003bce:	b008      	add	sp, #32
  8003bd0:	bd80      	pop	{r7, pc}
  8003bd2:	46c0      	nop			@ (mov r8, r8)
- 8003bd4:	080073e0 	.word	0x080073e0
- 8003bd8:	08007220 	.word	0x08007220
- 8003bdc:	08007234 	.word	0x08007234
- 8003be0:	08007254 	.word	0x08007254
- 8003be4:	08007270 	.word	0x08007270
- 8003be8:	08007290 	.word	0x08007290
- 8003bec:	080072a8 	.word	0x080072a8
- 8003bf0:	080072c0 	.word	0x080072c0
- 8003bf4:	080072c4 	.word	0x080072c4
- 8003bf8:	080072f0 	.word	0x080072f0
- 8003bfc:	080072f4 	.word	0x080072f4
+ 8003bd4:	080073d8 	.word	0x080073d8
+ 8003bd8:	08007218 	.word	0x08007218
+ 8003bdc:	0800722c 	.word	0x0800722c
+ 8003be0:	0800724c 	.word	0x0800724c
+ 8003be4:	08007268 	.word	0x08007268
+ 8003be8:	08007288 	.word	0x08007288
+ 8003bec:	080072a0 	.word	0x080072a0
+ 8003bf0:	080072b8 	.word	0x080072b8
+ 8003bf4:	080072bc 	.word	0x080072bc
+ 8003bf8:	080072e8 	.word	0x080072e8
+ 8003bfc:	080072ec 	.word	0x080072ec
 
 08003c00 <compute_sine_wave>:
  */
@@ -9226,7 +9229,7 @@ LoopForever:
   ldr r1, =_edata
  80042ec:	20000070 	.word	0x20000070
   ldr r2, =_sidata
- 80042f0:	08007920 	.word	0x08007920
+ 80042f0:	08007918 	.word	0x08007918
   ldr r2, =_sbss
  80042f4:	20000070 	.word	0x20000070
   ldr r4, =_ebss
@@ -9504,7 +9507,7 @@ Infinite_Loop:
  8004518:	20000000 	.word	0x20000000
  800451c:	02dc6c00 	.word	0x02dc6c00
  8004520:	007a1200 	.word	0x007a1200
- 8004524:	080073d0 	.word	0x080073d0
+ 8004524:	080073c8 	.word	0x080073c8
 
 08004528 <_strtol_l.constprop.0>:
  8004528:	b5f0      	push	{r4, r5, r6, r7, lr}
@@ -9639,7 +9642,7 @@ Infinite_Loop:
  800462e:	9b01      	ldr	r3, [sp, #4]
  8004630:	603b      	str	r3, [r7, #0]
  8004632:	e7cb      	b.n	80045cc <_strtol_l.constprop.0+0xa4>
- 8004634:	080073e1 	.word	0x080073e1
+ 8004634:	080073d9 	.word	0x080073d9
  8004638:	7fffffff 	.word	0x7fffffff
 
 0800463c <strtol>:
@@ -10397,7 +10400,7 @@ Infinite_Loop:
  8004c62:	d1e6      	bne.n	8004c32 <strncasecmp+0xe>
  8004c64:	bdfe      	pop	{r1, r2, r3, r4, r5, r6, r7, pc}
  8004c66:	46c0      	nop			@ (mov r8, r8)
- 8004c68:	080073e1 	.word	0x080073e1
+ 8004c68:	080073d9 	.word	0x080073d9
 
 08004c6c <_close_r>:
  8004c6c:	2300      	movs	r3, #0
@@ -10512,10 +10515,10 @@ Infinite_Loop:
  8004d46:	4798      	blx	r3
  8004d48:	3601      	adds	r6, #1
  8004d4a:	e7f2      	b.n	8004d32 <__libc_init_array+0x1e>
- 8004d4c:	08007918 	.word	0x08007918
- 8004d50:	08007918 	.word	0x08007918
- 8004d54:	0800791c 	.word	0x0800791c
- 8004d58:	08007918 	.word	0x08007918
+ 8004d4c:	08007910 	.word	0x08007910
+ 8004d50:	08007910 	.word	0x08007910
+ 8004d54:	08007914 	.word	0x08007914
+ 8004d58:	08007910 	.word	0x08007910
 
 08004d5c <__retarget_lock_init_recursive>:
  8004d5c:	4770      	bx	lr
@@ -11088,9 +11091,9 @@ Infinite_Loop:
  80051dc:	f000 f87c 	bl	80052d8 <_printf_i>
  80051e0:	e7e3      	b.n	80051aa <_vfiprintf_r+0x1ea>
  80051e2:	46c0      	nop			@ (mov r8, r8)
- 80051e4:	080074e1 	.word	0x080074e1
- 80051e8:	080074e7 	.word	0x080074e7
- 80051ec:	080074eb 	.word	0x080074eb
+ 80051e4:	080074d9 	.word	0x080074d9
+ 80051e8:	080074df 	.word	0x080074df
+ 80051ec:	080074e3 	.word	0x080074e3
  80051f0:	00000000 	.word	0x00000000
  80051f4:	08004f9b 	.word	0x08004f9b
 
@@ -11461,8 +11464,8 @@ Infinite_Loop:
  80054e6:	2500      	movs	r5, #0
  80054e8:	e7f7      	b.n	80054da <_printf_i+0x202>
  80054ea:	46c0      	nop			@ (mov r8, r8)
- 80054ec:	080074f2 	.word	0x080074f2
- 80054f0:	08007503 	.word	0x08007503
+ 80054ec:	080074ea 	.word	0x080074ea
+ 80054f0:	080074fb 	.word	0x080074fb
 
 080054f4 <__sflush_r>:
  80054f4:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
@@ -12855,7 +12858,7 @@ Infinite_Loop:
  80060e0:	0003988e 	.word	0x0003988e
  80060e4:	000bb679 	.word	0x000bb679
  80060e8:	fff00000 	.word	0xfff00000
- 80060ec:	08007538 	.word	0x08007538
+ 80060ec:	08007530 	.word	0x08007530
  80060f0:	4a454eef 	.word	0x4a454eef
  80060f4:	3fca7e28 	.word	0x3fca7e28
  80060f8:	93c9db65 	.word	0x93c9db65
@@ -12873,8 +12876,8 @@ Infinite_Loop:
  8006128:	dc3a03fd 	.word	0xdc3a03fd
  800612c:	145b01f5 	.word	0x145b01f5
  8006130:	be3e2fe0 	.word	0xbe3e2fe0
- 8006134:	08007518 	.word	0x08007518
- 8006138:	08007528 	.word	0x08007528
+ 8006134:	08007510 	.word	0x08007510
+ 8006138:	08007520 	.word	0x08007520
  800613c:	652b82fe 	.word	0x652b82fe
  8006140:	3c971547 	.word	0x3c971547
  8006144:	fffffc02 	.word	0xfffffc02
@@ -13573,11 +13576,11 @@ Infinite_Loop:
  80067fc:	2e85a308 	.word	0x2e85a308
  8006800:	43490f80 	.word	0x43490f80
  8006804:	3f22f984 	.word	0x3f22f984
- 8006808:	08007548 	.word	0x08007548
+ 8006808:	08007540 	.word	0x08007540
  800680c:	7fffff00 	.word	0x7fffff00
  8006810:	2e85a300 	.word	0x2e85a300
  8006814:	248d3132 	.word	0x248d3132
- 8006818:	080075c8 	.word	0x080075c8
+ 8006818:	080075c0 	.word	0x080075c0
 
 0800681c <fabsf>:
  800681c:	0040      	lsls	r0, r0, #1
@@ -14329,8 +14332,8 @@ Infinite_Loop:
  8006e4e:	3701      	adds	r7, #1
  8006e50:	1c05      	adds	r5, r0, #0
  8006e52:	e7e6      	b.n	8006e22 <__kernel_rem_pio2f+0x2fa>
- 8006e54:	0800790c 	.word	0x0800790c
- 8006e58:	080078e0 	.word	0x080078e0
+ 8006e54:	08007904 	.word	0x08007904
+ 8006e58:	080078d8 	.word	0x080078d8
  8006e5c:	9b08      	ldr	r3, [sp, #32]
  8006e5e:	9a06      	ldr	r2, [sp, #24]
  8006e60:	1c20      	adds	r0, r4, #0

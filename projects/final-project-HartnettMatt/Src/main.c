@@ -31,13 +31,13 @@
 #include "sine.h"
 #include "button.h"
 
-// TODO: Solve tearing on analog output
-
 #define F_SYS_CLK (48000000L)
 #define TXT_BUFFER_SIZE 128
 #define X10_SECONDS_IN_DAY 864000
 #define C5_FREQ 523 // Frequency of alarm - C5 is best note to wake a person up
-
+#define TONE_ON_TIME 8
+#define TONE_OFF_TIME 5
+#define TONE_PERIOD (TONE_ON_TIME + TONE_OFF_TIME)
 
 // Tone buffer
 uint16_t c4_samples[SINE_BUFFER_SIZE];
@@ -89,7 +89,7 @@ void SysTick_Handler(void) {
     if (current_time == alarm_time) { // Start alarm
         alarm_flag = 1;
     } else if (alarm_flag == 2) {
-        if(tone_counter < 15){
+        if (tone_counter < TONE_PERIOD) {
             tone_counter++;
         } else {
             tone_counter = 0;
@@ -132,6 +132,7 @@ int main(void) {
 
     // Generate tone buffer first - only do once, a lot of math involved
     int sample_cnt = compute_sine_wave(C5_FREQ, c4_samples, SINE_BUFFER_SIZE, DAC_SAMPLE_RATE, DAC_RESOLUTION);
+    int sensor_val = 0;
 
     // Initialize most peripherals
     usart_init();
@@ -168,20 +169,21 @@ int main(void) {
 
     while (1) {
         // TODO: Add logic for checking time and resetting and such
-        int val = dig_in_read();
-        printf("%d, ", val);
+
         if (alarm_flag == 1) {
             printf("Good morning!");
             // Start the alarm
             analog_out_start();
             alarm_flag = 2;
         } else if (alarm_flag == 2) {
+            sensor_val = dig_in_read();
             // Alarm turn off condition
-            if(read_button() == 1){
+            if (read_button() == 1 || sensor_val == 1) {
                 analog_out_stop();
+                printf("Glad to see you awake!");
                 alarm_flag = 0;
             } else {
-                if(tone_counter < 10){
+                if (tone_counter < TONE_ON_TIME) {
                     analog_out_start();
                 } else {
                     analog_out_stop();
