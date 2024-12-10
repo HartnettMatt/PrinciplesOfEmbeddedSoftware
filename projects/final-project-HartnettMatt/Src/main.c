@@ -18,8 +18,11 @@
  *
  */
 
+// TODO: add in debug mode and POST
+
 #include <stm32f091xc.h>
 #include <stdio.h>
+#include "dig_in.h"
 #include "uled.h"
 #include "analog_out.h"
 #include "usart.h"
@@ -86,7 +89,7 @@ void SysTick_Handler(void) {
     if (current_time == alarm_time) { // Start alarm
         alarm_flag = 1;
     } else if (alarm_flag == 2) {
-        if(tone_counter < 20){
+        if(tone_counter < 15){
             tone_counter++;
         } else {
             tone_counter = 0;
@@ -135,6 +138,7 @@ int main(void) {
     uled_init();
     button_init();
     analog_out_init(c4_samples, sample_cnt);
+    dig_in_init();
     set_blk_size(sample_cnt);
     // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
     // Ask user for system parameters:
@@ -164,6 +168,8 @@ int main(void) {
 
     while (1) {
         // TODO: Add logic for checking time and resetting and such
+        int val = dig_in_read();
+        printf("%d, ", val);
         if (alarm_flag == 1) {
             printf("Good morning!");
             // Start the alarm

@@ -1,6 +1,7 @@
 "./Src/analog_out.o"
 "./Src/button.o"
 "./Src/cbfifo.o"
+"./Src/dig_in.o"
 "./Src/main.o"
 "./Src/process_time.o"
 "./Src/sine.o"
