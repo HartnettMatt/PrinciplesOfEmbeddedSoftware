@@ -1,41 +1,47 @@
+/*******************************************************************************
+ * Copyright (C) 2024 by Matt Hartnett
+ *
+ * Redistribution, modification or use of this software in source or binary
+ * forms is permitted as long as the files maintain this copyright. Users are
+ * permitted to modify this and use it to learn about the field of embedded
+ * software. Matt Hartnett and the University of Colorado are not liable for
+ * any misuse of this material.
+ * ****************************************************************************/
+
 /**
- ******************************************************************************
- * @file           : main.c
- * @author         : mhartnett
- * @brief          : Main program body
- ******************************************************************************
- * @attention
+ * @file    main.c
+ * @brief Matt Hartnett's main file for ECEN5813 Final Project
+ * TODO: Finish this
  *
- * Copyright (c) 2023 STMicroelectronics.
- * All rights reserved.
+ * @author  Matt Hartnett
+ * @date    12/3/2024
  *
- * This software is licensed under terms that can be found in the LICENSE file
- * in the root directory of this software component.
- * If no LICENSE file comes with this software, it is provided AS-IS.
- *
- ******************************************************************************
  */
 
-#include "analog_in.h"
+#include <stm32f091xc.h>
+#include <stdio.h>
+#include "uled.h"
 #include "analog_out.h"
 #include "usart.h"
-#include <stdio.h>
-#include <stm32f091xc.h>
+#include "usart.h"
+#include "process_cmd.h"
 
 // TODO: Solve tearing on analog output
 
 #define F_SYS_CLK (48000000L)
-#define TWO_PI 6
+#define PROMPT "$$ "
+#define TXT_BUFFER_SIZE 128
+#define TWO_PI 6 // TODO: Fix this
+
 
 // Tone buffer
 // TODO: Check if these are the tones we want to generate
 int16_t a4_samples[BUFFER_SIZE];
 int16_t d5_samples[BUFFER_SIZE];
 
-// Print flag
-static int flag = 0;
-static int tone_index = 0;
+// Keep track of time
 static int time_count = 0;
+static int tone_index = 0;
 
 // TODO: Change to 1 second
 /**
@@ -58,6 +64,7 @@ void Init_SysTick(void) {
     SysTick->CTRL = SysTick_CTRL_TICKINT_Msk |
                     SysTick_CTRL_ENABLE_Msk;
 }
+
 
 // TODO Completely re-do this guy to do as little as possible
 /**
@@ -92,42 +99,37 @@ void SysTick_Handler(void) {
 
         // Restart the DMA
         DMA2_Channel3->CCR |= DMA_CCR_EN; // Enable DMA
-        flag = 0;
     }
 }
 
 int main(void) {
-    /* You can use the Command Shell Console in STM32CubeIDE or an
-	 * external program such as Putty or TeraTerm to view printf output.
-	 * The settings are: Baud: 9600, Parity: None, Stop Bits: 1 with
-	 * the ST-Link COM port setting.
+    /*
 	 * Clocks: Processor = 48 Mhz. AHB = 48 MHz. APB = 24 MHz.
+	 *
 	 */
+//    char buf[TXT_BUFFER_SIZE]; // Buffer to store received string
+//    int idx = 0;   // Index for buffer
 
     // Generate all of my tone buffers first
     tone_to_samples(A4_FREQ, A4_STEP, A4_BLOCK, a4_samples, BUFFER_SIZE);
     tone_to_samples(D5_FREQ, D5_STEP, D5_BLOCK, d5_samples, BUFFER_SIZE);
 
+    // Initialize peripherals
+    usart_init();
+    uled_init();
     analog_out_init(a4_samples, A4_BLOCK);
-    // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
-    analog_in_init();
     set_blk_size(A4_BLOCK);
+    // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
     // TODO: UART init (maybe, depends on if we can read with default UART)
-//    int16_t *adc_values;
 
     // TODO: Ask user for time and alarm, set system parameters
-    // Initialize USART
-    usart_init();
-    printf("\r\n$$ Welcome to SerialIO!\r\n");
 
+    printf("What time is it?\r\n");
     printf("Goodnight!");
     Init_SysTick();
     // TODO: Figure out sleep and such
 
     while (1) {
         // TODO: Add logic for checking time and resetting and such
-//        analog_out_start();
     }
-
-    return 0;
 }

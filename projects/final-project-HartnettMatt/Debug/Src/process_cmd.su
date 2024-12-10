@@ -1,0 +1,4 @@
+../Src/process_cmd.c:28:14:parse_hex	24	static
+../Src/process_cmd.c:34:5:is_valid_hex	16	static
+../Src/process_cmd.c:44:5:parse_length	24	static
+../Src/process_cmd.c:78:6:process_command	144	static

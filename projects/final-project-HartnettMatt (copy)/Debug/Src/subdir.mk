@@ -5,36 +5,33 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/analog_in.c \
 ../Src/analog_out.c \
 ../Src/cbfifo.c \
 ../Src/main.c \
-../Src/old_main.c \
-../Src/process_cmd.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c \
-../Src/uled.c \
+../Src/test_sine.c \
 ../Src/usart.c 
 
 OBJS += \
+./Src/analog_in.o \
 ./Src/analog_out.o \
 ./Src/cbfifo.o \
 ./Src/main.o \
-./Src/old_main.o \
-./Src/process_cmd.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o \
-./Src/uled.o \
+./Src/test_sine.o \
 ./Src/usart.o 
 
 C_DEPS += \
+./Src/analog_in.d \
 ./Src/analog_out.d \
 ./Src/cbfifo.d \
 ./Src/main.d \
-./Src/old_main.d \
-./Src/process_cmd.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d \
-./Src/uled.d \
+./Src/test_sine.d \
 ./Src/usart.d 
 
 
@@ -45,7 +42,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/old_main.cyclo ./Src/old_main.d ./Src/old_main.o ./Src/old_main.su ./Src/process_cmd.cyclo ./Src/process_cmd.d ./Src/process_cmd.o ./Src/process_cmd.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
+	-$(RM) ./Src/analog_in.cyclo ./Src/analog_in.d ./Src/analog_in.o ./Src/analog_in.su ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/test_sine.cyclo ./Src/test_sine.d ./Src/test_sine.o ./Src/test_sine.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
 
 .PHONY: clean-Src
 
