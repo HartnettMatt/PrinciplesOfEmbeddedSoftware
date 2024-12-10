@@ -8,4 +8,4 @@
 ../Src/analog_out.c:60:6:analog_out_init	1
 ../Src/analog_out.c:90:6:analog_out_start	1
 ../Src/analog_out.c:97:6:analog_out_stop	1
-../Src/analog_out.c:103:5:tone_to_samples	3
+../Src/analog_out.c:104:5:tone_to_samples	3

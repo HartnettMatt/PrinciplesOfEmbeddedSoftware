@@ -6,6 +6,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Src/analog_out.c \
+../Src/button.c \
 ../Src/cbfifo.c \
 ../Src/main.c \
 ../Src/process_time.c \
@@ -17,6 +18,7 @@ C_SRCS += \
 
 OBJS += \
 ./Src/analog_out.o \
+./Src/button.o \
 ./Src/cbfifo.o \
 ./Src/main.o \
 ./Src/process_time.o \
@@ -28,6 +30,7 @@ OBJS += \
 
 C_DEPS += \
 ./Src/analog_out.d \
+./Src/button.d \
 ./Src/cbfifo.d \
 ./Src/main.d \
 ./Src/process_time.d \
@@ -45,7 +48,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/process_time.cyclo ./Src/process_time.d ./Src/process_time.o ./Src/process_time.su ./Src/sine.cyclo ./Src/sine.d ./Src/sine.o ./Src/sine.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
+	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/button.cyclo ./Src/button.d ./Src/button.o ./Src/button.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/process_time.cyclo ./Src/process_time.d ./Src/process_time.o ./Src/process_time.su ./Src/sine.cyclo ./Src/sine.d ./Src/sine.o ./Src/sine.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
 
 .PHONY: clean-Src
 

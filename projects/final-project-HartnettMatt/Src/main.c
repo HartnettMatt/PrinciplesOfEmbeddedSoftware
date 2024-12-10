@@ -26,6 +26,7 @@
 #include "usart.h"
 #include "process_time.h"
 #include "sine.h"
+#include "button.h"
 
 // TODO: Solve tearing on analog output
 
@@ -85,7 +86,13 @@ void SysTick_Handler(void) {
     if (current_time == alarm_time) { // Start alarm
         alarm_flag = 1;
     } else if (alarm_flag == 2) {
-        tone_counter++;
+        if(tone_counter < 20){
+            tone_counter++;
+        } else {
+            tone_counter = 0;
+        }
+    } else {
+        tone_counter = 0; // Make sure this is reset
     }
 }
 // Returns length of string
@@ -126,6 +133,7 @@ int main(void) {
     // Initialize most peripherals
     usart_init();
     uled_init();
+    button_init();
     analog_out_init(c4_samples, sample_cnt);
     set_blk_size(sample_cnt);
     // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
@@ -159,10 +167,20 @@ int main(void) {
         if (alarm_flag == 1) {
             printf("Good morning!");
             // Start the alarm
-            DMA2_Channel3->CCR |= DMA_CCR_EN; // Enable DMA
+            analog_out_start();
             alarm_flag = 2;
         } else if (alarm_flag == 2) {
-            DMA2_Channel3->CCR &= ~DMA_CCR_EN; // Disable DMA
+            // Alarm turn off condition
+            if(read_button() == 1){
+                analog_out_stop();
+                alarm_flag = 0;
+            } else {
+                if(tone_counter < 10){
+                    analog_out_start();
+                } else {
+                    analog_out_stop();
+                }
+            }
         }
     }
 }

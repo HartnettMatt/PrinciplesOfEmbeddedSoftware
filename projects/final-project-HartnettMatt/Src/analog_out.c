@@ -96,6 +96,7 @@ void analog_out_start(void) {
 
 void analog_out_stop(void) {
     // Disable DMA and Timer
+    DAC->DHR12R1 = 0;
     DMA1_Channel1->CCR &= ~DMA_CCR_EN;
     TIM6->CR1 &= ~TIM_CR1_CEN;
 }
@@ -109,7 +110,7 @@ int tone_to_samples(uint32_t frequency, uint32_t step_size, uint32_t block_size,
     int32_t current_phase = 0;
 
     for (int32_t i = 0; i < block_size; ++i) {
-//        int32_t raw_sample = fp_sin(current_phase);
+        //        int32_t raw_sample = fp_sin(current_phase);
         int32_t raw_sample = 1;
         buffer[i] = (int16_t)(raw_sample + 1);
         current_phase = (current_phase + step_size);
