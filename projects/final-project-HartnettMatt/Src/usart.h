@@ -23,9 +23,9 @@
 #include <stdint.h>
 
 // User UART settings
-#define BAUD_RATE 19200
-#define DATA_SIZE 9 // Include any parity bits, so 8 data bits + 1 parity bit = 9 data_size
-#define PARTIY 2 // None = 0 Even = 1, Odd = 2
+#define BAUD_RATE 9600
+#define DATA_SIZE 8 // Include any parity bits, so 8 data bits + 1 parity bit = 9 data_size
+#define PARTIY 0 // None = 0 Even = 1, Odd = 2
 #define STOP_BITS 0 // 0 = 1 stop bit, 1 = 0.5 stop bits, 2 = 2 stop bits, 3 = 1.5 stop bits
 
 // Other/derived settings
