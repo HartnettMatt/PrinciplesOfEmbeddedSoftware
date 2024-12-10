@@ -7,7 +7,6 @@
 
 #ifndef ANALOG_OUT_H_
 #define ANALOG_OUT_H_
-#include "fp_trig.h"
 #include <stdint.h>
 
 // Configuration constants:

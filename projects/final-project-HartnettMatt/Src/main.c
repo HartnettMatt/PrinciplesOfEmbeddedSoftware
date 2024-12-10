@@ -17,25 +17,27 @@
  */
 
 #include "analog_in.h"
-#include "test_sine.h"
 #include "analog_out.h"
-#include "analysis.h"
+#include "usart.h"
 #include <stdio.h>
 #include <stm32f091xc.h>
 
+// TODO: Solve tearing on analog output
+
 #define F_SYS_CLK (48000000L)
+#define TWO_PI 6
 
 // Tone buffer
+// TODO: Check if these are the tones we want to generate
 int16_t a4_samples[BUFFER_SIZE];
 int16_t d5_samples[BUFFER_SIZE];
-int16_t e5_samples[BUFFER_SIZE];
-int16_t a5_samples[BUFFER_SIZE];
 
 // Print flag
 static int flag = 0;
 static int tone_index = 0;
 static int time_count = 0;
 
+// TODO: Change to 1 second
 /**
  * Initializes the SysTick timer to generate periodic interrupts.
  *
@@ -57,6 +59,7 @@ void Init_SysTick(void) {
                     SysTick_CTRL_ENABLE_Msk;
 }
 
+// TODO Completely re-do this guy to do as little as possible
 /**
  * SysTick interrupt handler for tone switching.
  *
@@ -68,7 +71,7 @@ void Init_SysTick(void) {
 void SysTick_Handler(void) {
 
     time_count++;
-    if (time_count >= 20) { // Switch tone every 2 seconds
+    if (time_count >= 20) {                // Switch tone every 2 seconds
         DMA2_Channel3->CCR &= ~DMA_CCR_EN; // Disable DMA
         time_count = 0;
         tone_index = (tone_index + 1) % 4; // Cycle through 4 tones
@@ -85,20 +88,10 @@ void SysTick_Handler(void) {
             DMA2_Channel3->CNDTR = D5_BLOCK;
             set_blk_size(D5_BLOCK);
             break;
-        case 2:
-            DMA2_Channel3->CMAR = (uint32_t)e5_samples;
-            DMA2_Channel3->CNDTR = E5_BLOCK;
-            set_blk_size(E5_BLOCK);
-            break;
-        case 3:
-            DMA2_Channel3->CMAR = (uint32_t)a5_samples;
-            DMA2_Channel3->CNDTR = A5_BLOCK;
-            set_blk_size(A5_BLOCK);
-            break;
         }
 
         // Restart the DMA
-        DMA2_Channel3->CCR |= DMA_CCR_EN;  // Enable DMA
+        DMA2_Channel3->CCR |= DMA_CCR_EN; // Enable DMA
         flag = 0;
     }
 }
@@ -114,38 +107,26 @@ int main(void) {
     // Generate all of my tone buffers first
     tone_to_samples(A4_FREQ, A4_STEP, A4_BLOCK, a4_samples, BUFFER_SIZE);
     tone_to_samples(D5_FREQ, D5_STEP, D5_BLOCK, d5_samples, BUFFER_SIZE);
-    tone_to_samples(E5_FREQ, E5_STEP, E5_BLOCK, e5_samples, BUFFER_SIZE);
-    tone_to_samples(A5_FREQ, A5_STEP, A5_BLOCK, a5_samples, BUFFER_SIZE);
 
     analog_out_init(a4_samples, A4_BLOCK);
+    // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
     analog_in_init();
     set_blk_size(A4_BLOCK);
+    // TODO: UART init (maybe, depends on if we can read with default UART)
+//    int16_t *adc_values;
+
+    // TODO: Ask user for time and alarm, set system parameters
+    // Initialize USART
+    usart_init();
+    printf("\r\n$$ Welcome to SerialIO!\r\n");
+
+    printf("Goodnight!");
     Init_SysTick();
-    analog_out_start();
-    int16_t *adc_values;
+    // TODO: Figure out sleep and such
 
-    // Use the main loop to handle printing and analysis so it doesn't bog down the timing of the actual tone generation
     while (1) {
-        if(flag == 0 && time_count >= 10){
-            switch (tone_index) {
-            case 0:
-                printf("Generated %d samples at %d Hz; computed period=%d samples\r\n", (A4_BLOCK_CNT*A4_BLOCK), A4_FREQ, A4_BLOCK);
-                break;
-            case 1:
-                printf("Generated %d samples at %d Hz; computed period=%d samples\r\n", (D5_BLOCK_CNT*D5_BLOCK), D5_FREQ, A4_BLOCK);
-                break;
-            case 2:
-                printf("Generated %d samples at %d Hz; computed period=%d samples\r\n", (E5_BLOCK_CNT*E5_BLOCK), E5_FREQ, A4_BLOCK);
-                break;
-            case 3:
-                printf("Generated %d samples at %d Hz; computed period=%d samples\r\n", (A5_BLOCK_CNT*A5_BLOCK), A5_FREQ, A4_BLOCK);
-                break;
-            }
-
-            adc_values = analog_in_sample();
-            analyze_and_print(adc_values, ADC_BUFFER_SIZE);
-            flag = 1;
-        }
+        // TODO: Add logic for checking time and resetting and such
+//        analog_out_start();
     }
 
     return 0;

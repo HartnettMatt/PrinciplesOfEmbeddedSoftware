@@ -6,7 +6,6 @@
  */
 
 #include "analog_out.h"
-#include "fp_trig.h"
 #include "utilities.h"
 #include <stm32f091xc.h>
 
@@ -110,8 +109,9 @@ int tone_to_samples(uint32_t frequency, uint32_t step_size, uint32_t block_size,
     int32_t current_phase = 0;
 
     for (int32_t i = 0; i < block_size; ++i) {
-        int32_t raw_sample = fp_sin(current_phase);
-        buffer[i] = (int16_t)(raw_sample + TRIG_SCALE_FACTOR);
+//        int32_t raw_sample = fp_sin(current_phase);
+        int32_t raw_sample = 1;
+        buffer[i] = (int16_t)(raw_sample + 1);
         current_phase = (current_phase + step_size);
     }
 

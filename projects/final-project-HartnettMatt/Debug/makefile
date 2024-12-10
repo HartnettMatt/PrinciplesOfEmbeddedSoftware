@@ -33,34 +33,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := assignment7-waveforms-HartnettMatt
+BUILD_ARTIFACT_NAME := final_project
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-assignment7-waveforms-HartnettMatt.elf \
+final_project.elf \
 
 MAP_FILES += \
-assignment7-waveforms-HartnettMatt.map \
+final_project.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-assignment7-waveforms-HartnettMatt.list \
+final_project.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: assignment7-waveforms-HartnettMatt.elf secondary-outputs
+main-build: final_project.elf secondary-outputs
 
 # Tool invocations
-assignment7-waveforms-HartnettMatt.elf assignment7-waveforms-HartnettMatt.map: $(OBJS) $(USER_OBJS) /home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/assignment7-waveforms-HartnettMatt/STM32F091RCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "assignment7-waveforms-HartnettMatt.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"/home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/assignment7-waveforms-HartnettMatt/STM32F091RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="assignment7-waveforms-HartnettMatt.map" -Wl,--gc-sections -static -L../Lib -Wl,--whole-archive -lstm_startup -Wl,--no-whole-archive -u_scanf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+final_project.elf final_project.map: $(OBJS) $(USER_OBJS) /home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/PrinciplesOfEmbeddedSoftware/projects/final-project-HartnettMatt/STM32F091RCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "final_project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"/home/matt/Documents/Education/Graduate/PrinciplesOfEmbeddedSoftware/PrinciplesOfEmbeddedSoftware/projects/final-project-HartnettMatt/STM32F091RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="final_project.map" -Wl,--gc-sections -static -L../Lib -Wl,--whole-archive -lstm_startup -Wl,--no-whole-archive -u_scanf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -69,14 +69,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-assignment7-waveforms-HartnettMatt.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "assignment7-waveforms-HartnettMatt.list"
+final_project.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "final_project.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) assignment7-waveforms-HartnettMatt.elf assignment7-waveforms-HartnettMatt.list assignment7-waveforms-HartnettMatt.map default.size.stdout
+	-$(RM) default.size.stdout final_project.elf final_project.list final_project.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
