@@ -57,7 +57,7 @@ void DMA1_Channel2_3_IRQHandler(void) {
     DMA2->IFCR |= 1; // Clear flag
 }
 
-void analog_out_init(int16_t *buffer, uint16_t buffer_size) {
+void analog_out_init(uint16_t *buffer, uint16_t buffer_size) {
     // Enable clocks for DAC, TIMER6, and DMA
     RCC->APB1ENR |= RCC_APB1ENR_DACEN | RCC_APB1ENR_TIM6EN;
     RCC->AHBENR |= RCC_AHBENR_DMA1EN;

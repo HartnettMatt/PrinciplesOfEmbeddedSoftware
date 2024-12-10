@@ -16,30 +16,13 @@
 // Other constants:
 #define ESF_GPIO_MODER_ANALOG 	(3)
 #define MAX_DAC_CODE 4095
-#define BUFFER_SIZE 1024
+#define SINE_BUFFER_SIZE 128
 
 // Timer constants:
 #define F_TIM6_CLOCK 48000000
 #define TIM6_PRESCALER (F_TIM6_CLOCK/DAC_SAMPLE_RATE)/2 // 500
 
 // Muiscal Notes:
-#define A4_FREQ 440
-#define A4_BLOCK (DAC_SAMPLE_RATE / A4_FREQ)
-#define A4_BLOCK_CNT (BUFFER_SIZE / A4_BLOCK)
-#define A4_STEP (TWO_PI / A4_BLOCK)
-#define D5_FREQ 587
-#define D5_BLOCK (DAC_SAMPLE_RATE / D5_FREQ)
-#define D5_BLOCK_CNT (BUFFER_SIZE / D5_BLOCK)
-#define D5_STEP (TWO_PI / D5_BLOCK)
-#define E5_FREQ 659
-#define E5_BLOCK (DAC_SAMPLE_RATE / E5_FREQ)
-#define E5_BLOCK_CNT (BUFFER_SIZE / E5_BLOCK)
-#define E5_STEP (TWO_PI / E5_BLOCK)
-#define A5_FREQ 880
-#define A5_BLOCK (DAC_SAMPLE_RATE / A5_FREQ)
-#define A5_BLOCK_CNT (BUFFER_SIZE / A5_BLOCK)
-#define A5_STEP (TWO_PI / A5_BLOCK)
-
 /**
  * Set block size for DMA reset
  *
@@ -49,7 +32,7 @@ void set_blk_size(int block_size);
 
 /**
  * Initializes the DAC
- * Configures the DAC to operate and sets the output to pin PA4
+ * Configures the DAC to operate and sets the output to pin PC5
  *
  */
 void dac_init(void);
@@ -61,7 +44,7 @@ void dac_init(void);
  * @param buffer Pointer to the analog sample buffer (16-bit samples)
  * @param buffer_size Size of the analog sample buffer
  */
-void analog_out_init(int16_t *buffer, uint16_t buffer_size);
+void analog_out_init(uint16_t *buffer, uint16_t buffer_size);
 
 /**
  * Starts analog playback.

@@ -9,6 +9,7 @@ C_SRCS += \
 ../Src/cbfifo.c \
 ../Src/main.c \
 ../Src/process_time.c \
+../Src/sine.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c \
 ../Src/uled.c \
@@ -19,6 +20,7 @@ OBJS += \
 ./Src/cbfifo.o \
 ./Src/main.o \
 ./Src/process_time.o \
+./Src/sine.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o \
 ./Src/uled.o \
@@ -29,6 +31,7 @@ C_DEPS += \
 ./Src/cbfifo.d \
 ./Src/main.d \
 ./Src/process_time.d \
+./Src/sine.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d \
 ./Src/uled.d \
@@ -42,7 +45,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/process_time.cyclo ./Src/process_time.d ./Src/process_time.o ./Src/process_time.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
+	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/process_time.cyclo ./Src/process_time.d ./Src/process_time.o ./Src/process_time.su ./Src/sine.cyclo ./Src/sine.d ./Src/sine.o ./Src/sine.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
 
 .PHONY: clean-Src
 

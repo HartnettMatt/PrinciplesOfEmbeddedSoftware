@@ -2,6 +2,7 @@
 "./Src/cbfifo.o"
 "./Src/main.o"
 "./Src/process_time.o"
+"./Src/sine.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
 "./Src/uled.o"
