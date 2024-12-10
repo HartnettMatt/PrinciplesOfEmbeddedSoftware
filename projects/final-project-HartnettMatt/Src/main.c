@@ -35,14 +35,15 @@
 #include "sine.h"
 #include "button.h"
 #include "sleep.h"
+#include "systick.h"
 
-#define F_SYS_CLK (48000000L)
 #define TXT_BUFFER_SIZE 128
 #define X10_SECONDS_IN_DAY 864000
 #define C5_FREQ 523 // Frequency of alarm - C5 is best note to wake a person up
 #define TONE_ON_TIME 8
 #define TONE_OFF_TIME 5
 #define TONE_PERIOD (TONE_ON_TIME + TONE_OFF_TIME)
+#define MIN_TONE_COUNT 5 // How many tones go off before movement can turn off the alarm
 
 typedef enum {
     ALARM_FLAG_IDLE,      // Alarm is idle - only on bootup when waiting for user input
@@ -59,30 +60,8 @@ static int alarm_time = 0;
 // Keep track of alarm state
 static alarm_flag_t alarm_flag = ALARM_FLAG_IDLE;
 // Keep track of tone timing
-static int tone_counter = 0;
-
-/**
- * Initializes the SysTick timer to generate periodic interrupts.
- *
- * This function configures the SysTick timer to produce an interrupt
- * every 100ms. The timer is initialized with a specific reload value
- * and interrupt priority, and then enabled.
- *
- */
-void Init_SysTick(void) {
-    // SysTick is defined in core_cm0.h
-    // Set reload to get 100ms interrupts
-    SysTick->LOAD = (F_SYS_CLK / 80) - 1;
-
-    // Set interrupt priority
-    NVIC_SetPriority(SysTick_IRQn, 3);
-    // Force load of reload value
-    SysTick->VAL = 0;
-    // Enable interrupt, enable SysTick timer
-    SysTick->CTRL = SysTick_CTRL_TICKINT_Msk |
-                    SysTick_CTRL_ENABLE_Msk;
-}
-
+static int tone_timer = 0;
+static int tone_count = 0;
 
 /**
  * SysTick interrupt handler for tone switching.
@@ -102,13 +81,16 @@ void SysTick_Handler(void) {
     if (current_time == alarm_time) { // Start alarm
         alarm_flag = ALARM_FLAG_TRIGGERED;
     } else if (alarm_flag == ALARM_FLAG_RUNNING) { // Manage alarm tone timing
-        if (tone_counter < TONE_PERIOD) {
-            tone_counter++;
+        if (tone_timer < TONE_PERIOD) {
+            tone_timer++;
         } else {
-            tone_counter = 0;
+            tone_timer = 0;
+            tone_count++;
         }
     } else {
-        tone_counter = 0; // Make sure this is reset
+        // Reset these if the alarm is off
+        tone_timer = 0;
+        tone_count = 0;
     }
 }
 
@@ -157,9 +139,14 @@ int main(void) {
 
     // Generate tone buffer first - only do once, a lot of math involved
     int sample_cnt = compute_sine_wave(C5_FREQ, c4_samples, SINE_BUFFER_SIZE, DAC_SAMPLE_RATE, DAC_RESOLUTION);
-    int sensor_val = 0;
 
-    // Initialize most peripherals
+    // Variables used throughout main loop
+    int sensor_val = 0;
+    char str_buf[TXT_BUFFER_SIZE]; // Recieve string buffer
+    int str_size;
+    int user_time = -1;
+
+    // Initialize peripherals
     usart_init();
     uled_init();
     button_init();
@@ -167,64 +154,61 @@ int main(void) {
     set_blk_size(sample_cnt);
     dig_in_init();
     sleep_init();
+    systick_init();
 
-    // Ask user for system parameters:
-    char str_buf[TXT_BUFFER_SIZE]; // Recieve string buffer
-    int str_size;
-    int user_time = -1;
-    // Loop until a valid input is recieved:
-    while (user_time == -1) {
-        printf("What time is it?\r\n");
-        str_size = user_input(str_buf, TXT_BUFFER_SIZE);
-        if (str_size != -1) {
-            user_time = process_time(str_buf, str_size);
-        }
-    }
-    // Needs to be multiplied by 10 due to systick occuring every 100ms
-    current_time = 10 * user_time;
-    user_time = -1;
-
-    // Start counting time immediatly - don't want to be inaccurate if user is slow
-    Init_SysTick();
-
-    // Ask for alarm time
-    while (user_time == -1) {
-        printf("When do you want to wake up?\r\n");
-        str_size = user_input(str_buf, TXT_BUFFER_SIZE);
-        if (str_size != -1) {
-            user_time = process_time(str_buf, str_size);
-        }
-    }
-    // Needs to be multiplied by 10 due to systick occuring every 100ms
-    alarm_time = 10 * user_time;
-
-    alarm_flag = ALARM_FLAG_ARMED;
-    printf("Goodnight! See you at %s\r\n", str_buf);
-
+    // Primary state machine loop:
     while (1) {
-        enter_sleep(); // Go to sleep - only woken up by DMA or SysTick interrupts
         // Alarm state logic
         switch (alarm_flag) {
         case ALARM_FLAG_IDLE:
-            printf("ERROR HAS OCCURED, ALARM IS IDLE");
+            // Ask user for system parameters:
+            // Loop until a valid input is recieved:
+            while (user_time == -1) {
+                printf("What time is it?\r\n");
+                str_size = user_input(str_buf, TXT_BUFFER_SIZE);
+                if (str_size != -1) {
+                    user_time = process_time(str_buf, str_size);
+                }
+            }
+            // Needs to be multiplied by 10 due to systick occuring every 100ms
+            current_time = 10 * user_time;
+            user_time = -1;
+
+            // Start counting time immediatly - don't want to be inaccurate if user is slow setting alarm
+            systick_start();
+
+            // Ask for alarm time
+            while (user_time == -1) {
+                printf("When do you want to wake up?\r\n");
+                str_size = user_input(str_buf, TXT_BUFFER_SIZE);
+                if (str_size != -1) {
+                    user_time = process_time(str_buf, str_size);
+                }
+            }
+            // Needs to be multiplied by 10 due to systick occuring every 100ms
+            alarm_time = 10 * user_time;
+
+            alarm_flag = ALARM_FLAG_ARMED;
+            printf("Goodnight! See you at %s\r\n", str_buf);
             break;
         case ALARM_FLAG_ARMED:
+            // Just go back to sleep - alarm check is handled in systick to ensure immediate switch to triggered
             break;
         case ALARM_FLAG_TRIGGERED:
-            printf("Good morning!\r\n");
             // Start the alarm
+            printf("Good morning!\r\n");
             analog_out_start();
             alarm_flag = ALARM_FLAG_RUNNING;
             break;
         case ALARM_FLAG_RUNNING:
+            // Alarm turn off check
             sensor_val = dig_in_read();
-            // Alarm turn off condition
-            if (read_button() == 1 || sensor_val == 1) {
+            if ((tone_count >= MIN_TONE_COUNT && sensor_val == 1) || read_button() == 1) {
                 analog_out_stop();
                 printf("Glad to see you awake!\r\n");
                 alarm_flag = ALARM_FLAG_ARMED;
             } else {
-                if (tone_counter < TONE_ON_TIME) {
+                if (tone_timer < TONE_ON_TIME) {
                     analog_out_start();
                 } else {
                     analog_out_stop();
@@ -232,5 +216,6 @@ int main(void) {
             }
             break;
         }
+        enter_sleep(); // Go to sleep - only woken up by DMA or SysTick interrupts
     }
 }

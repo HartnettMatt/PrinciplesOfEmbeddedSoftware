@@ -15,6 +15,7 @@ C_SRCS += \
 ../Src/sleep.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c \
+../Src/systick.c \
 ../Src/uled.c \
 ../Src/usart.c 
 
@@ -29,6 +30,7 @@ OBJS += \
 ./Src/sleep.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o \
+./Src/systick.o \
 ./Src/uled.o \
 ./Src/usart.o 
 
@@ -43,6 +45,7 @@ C_DEPS += \
 ./Src/sleep.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d \
+./Src/systick.d \
 ./Src/uled.d \
 ./Src/usart.d 
 
@@ -54,7 +57,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/button.cyclo ./Src/button.d ./Src/button.o ./Src/button.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/dig_in.cyclo ./Src/dig_in.d ./Src/dig_in.o ./Src/dig_in.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/process_time.cyclo ./Src/process_time.d ./Src/process_time.o ./Src/process_time.su ./Src/sine.cyclo ./Src/sine.d ./Src/sine.o ./Src/sine.su ./Src/sleep.cyclo ./Src/sleep.d ./Src/sleep.o ./Src/sleep.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
+	-$(RM) ./Src/analog_out.cyclo ./Src/analog_out.d ./Src/analog_out.o ./Src/analog_out.su ./Src/button.cyclo ./Src/button.d ./Src/button.o ./Src/button.su ./Src/cbfifo.cyclo ./Src/cbfifo.d ./Src/cbfifo.o ./Src/cbfifo.su ./Src/dig_in.cyclo ./Src/dig_in.d ./Src/dig_in.o ./Src/dig_in.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/process_time.cyclo ./Src/process_time.d ./Src/process_time.o ./Src/process_time.su ./Src/sine.cyclo ./Src/sine.d ./Src/sine.o ./Src/sine.su ./Src/sleep.cyclo ./Src/sleep.d ./Src/sleep.o ./Src/sleep.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/systick.cyclo ./Src/systick.d ./Src/systick.o ./Src/systick.su ./Src/uled.cyclo ./Src/uled.d ./Src/uled.o ./Src/uled.su ./Src/usart.cyclo ./Src/usart.d ./Src/usart.o ./Src/usart.su
 
 .PHONY: clean-Src
 

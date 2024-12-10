@@ -1,2 +1,2 @@
-../Src/dig_in.c:25:5:dig_in_init	1
-../Src/dig_in.c:34:5:dig_in_read	1
+../Src/dig_in.c:25:6:dig_in_init	1
+../Src/dig_in.c:32:5:dig_in_read	1

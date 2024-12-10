@@ -8,6 +8,7 @@
 "./Src/sleep.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
+"./Src/systick.o"
 "./Src/uled.o"
 "./Src/usart.o"
 "./Startup/startup_stm32f091rctx.o"
