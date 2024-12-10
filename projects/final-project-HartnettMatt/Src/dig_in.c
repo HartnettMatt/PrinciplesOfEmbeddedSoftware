@@ -22,13 +22,11 @@
 #include "dig_in.h"
 #include "utilities.h"
 
-int dig_in_init(void) {
+void dig_in_init(void) {
 	// Enable peripheral clock of GPIOB (for PB3)
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
 	// Configure PB3 in input mode
 	MODIFY_FIELD(GPIOB->MODER, GPIO_MODER_MODER3, ESF_GPIO_MODER_INPUT);
-
-	return 0;
 }
 
 int dig_in_read(void){

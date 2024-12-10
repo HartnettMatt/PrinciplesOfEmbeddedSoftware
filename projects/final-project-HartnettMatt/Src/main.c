@@ -11,7 +11,10 @@
 /**
  * @file    main.c
  * @brief Matt Hartnett's main file for ECEN5813 Final Project
- * TODO: Finish this description
+ * This project is a motion detecting alarm clock. It queries the user
+ * for the current time as well as the alarm time, then goes to sleep and waits.
+ * Once the alarm time has occured, it begins beeping. If it detects motion, it stops
+ * beeping and waits until tomorrow to go off again.
  *
  * @author  Matt Hartnett
  * @date    12/3/2024
@@ -19,6 +22,7 @@
  */
 
 // TODO: add in debug mode and POST
+// TODO: Create state machine diagram
 
 #include <stm32f091xc.h>
 #include <stdio.h>
@@ -49,11 +53,12 @@ typedef enum {
 
 // Tone buffer
 uint16_t c4_samples[SINE_BUFFER_SIZE];
-
 // Keep track of time
 static int current_time = 0;
 static int alarm_time = 0;
+// Keep track of alarm state
 static alarm_flag_t alarm_flag = ALARM_FLAG_IDLE;
+// Keep track of tone timing
 static int tone_counter = 0;
 
 /**
@@ -62,7 +67,7 @@ static int tone_counter = 0;
  * This function configures the SysTick timer to produce an interrupt
  * every 100ms. The timer is initialized with a specific reload value
  * and interrupt priority, and then enabled.
- * Systick occurs every 100ms to maintain responsivness when turning off the alarm
+ *
  */
 void Init_SysTick(void) {
     // SysTick is defined in core_cm0.h
@@ -79,14 +84,13 @@ void Init_SysTick(void) {
 }
 
 
-// TODO Completely re-do this guy to do as little as possible
 /**
  * SysTick interrupt handler for tone switching.
  *
- * This handler increments a time counter and switches tones every 2 seconds.
- * When the time threshold is reached, it disables the DMA, updates the DMA
- * buffer with the next tone's sample data, resets the counter, and restarts
- * the DMA. The tones cycle through a predefined set of four options.
+ * This handler mostly just increments the current time.
+ * If current time is equal to alarm time, the alarm enters
+ * the triggered state, and if it's in the running state,
+ * it increments through the tone playback.
  */
 void SysTick_Handler(void) {
     if (current_time < X10_SECONDS_IN_DAY) {
@@ -94,11 +98,10 @@ void SysTick_Handler(void) {
     } else {
         current_time = 0;
     }
-    // Start alarm
-    if (current_time == alarm_time) {
+
+    if (current_time == alarm_time) { // Start alarm
         alarm_flag = ALARM_FLAG_TRIGGERED;
-        // If the alarm is running, manage alarm tone timing
-    } else if (alarm_flag == ALARM_FLAG_RUNNING) {
+    } else if (alarm_flag == ALARM_FLAG_RUNNING) { // Manage alarm tone timing
         if (tone_counter < TONE_PERIOD) {
             tone_counter++;
         } else {
@@ -108,8 +111,20 @@ void SysTick_Handler(void) {
         tone_counter = 0; // Make sure this is reset
     }
 }
-// Returns length of string
-// TODO: Write comment for this function
+
+/**
+ * @brief Captures user input from the terminal and stores it in a buffer.
+ *
+ * Reads characters from the terminal, handles backspace for editing,
+ * and terminates the input on newline or carriage return. The input is
+ * stored in the provided buffer and null-terminated.
+ *
+ * @param[out] str    Buffer to store the input string.
+ * @param[in]  strlen Size of the buffer, including space for the null terminator.
+ *
+ * @return Length of the captured string (excluding the null terminator),
+ *         or -1 in case of an error.
+ */
 int user_input(char *str, size_t strlen) {
     int str_idx = 0; // Index for string buffer
     while (1) {
@@ -152,43 +167,56 @@ int main(void) {
     set_blk_size(sample_cnt);
     dig_in_init();
     sleep_init();
-    // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
+
     // Ask user for system parameters:
     char str_buf[TXT_BUFFER_SIZE]; // Recieve string buffer
     int str_size;
-    int time = -1;
+    int user_time = -1;
     // Loop until a valid input is recieved:
-    while (time == -1) {
+    while (user_time == -1) {
         printf("What time is it?\r\n");
         str_size = user_input(str_buf, TXT_BUFFER_SIZE);
-        time = process_time(str_buf, str_size);
+        if (str_size != -1) {
+            user_time = process_time(str_buf, str_size);
+        }
     }
     // Needs to be multiplied by 10 due to systick occuring every 100ms
-    // Systick occurs every 100ms to maintain responsivness when turning off the alarm
-    current_time = 10 * time;
-    time = -1;
+    current_time = 10 * user_time;
+    user_time = -1;
 
     // Start counting time immediatly - don't want to be inaccurate if user is slow
     Init_SysTick();
 
     // Ask for alarm time
-    while (time == -1) {
+    while (user_time == -1) {
         printf("When do you want to wake up?\r\n");
         str_size = user_input(str_buf, TXT_BUFFER_SIZE);
-        time = process_time(str_buf, str_size);
+        if (str_size != -1) {
+            user_time = process_time(str_buf, str_size);
+        }
     }
-    alarm_time = 10 * time;
-    printf("Goodnight! See you at %s\r\n", str_buf);
+    // Needs to be multiplied by 10 due to systick occuring every 100ms
+    alarm_time = 10 * user_time;
+
     alarm_flag = ALARM_FLAG_ARMED;
+    printf("Goodnight! See you at %s\r\n", str_buf);
 
     while (1) {
-        enter_sleep();
-        if (alarm_flag == ALARM_FLAG_TRIGGERED) {
+        enter_sleep(); // Go to sleep - only woken up by DMA or SysTick interrupts
+        // Alarm state logic
+        switch (alarm_flag) {
+        case ALARM_FLAG_IDLE:
+            printf("ERROR HAS OCCURED, ALARM IS IDLE");
+            break;
+        case ALARM_FLAG_ARMED:
+            break;
+        case ALARM_FLAG_TRIGGERED:
             printf("Good morning!\r\n");
             // Start the alarm
             analog_out_start();
             alarm_flag = ALARM_FLAG_RUNNING;
-        } else if (alarm_flag == ALARM_FLAG_RUNNING) {
+            break;
+        case ALARM_FLAG_RUNNING:
             sensor_val = dig_in_read();
             // Alarm turn off condition
             if (read_button() == 1 || sensor_val == 1) {
@@ -202,6 +230,7 @@ int main(void) {
                     analog_out_stop();
                 }
             }
+            break;
         }
     }
 }
