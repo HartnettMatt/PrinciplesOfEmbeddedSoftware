@@ -23,7 +23,7 @@
 #include <string.h>
 
 #include "process_time.h"
-#include "uled.h"
+
 int process_time(char *input, size_t nbytes) {
     int hours = -1, minutes = -1, total_seconds = 0;
     char *endptr;

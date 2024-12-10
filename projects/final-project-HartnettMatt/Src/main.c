@@ -27,7 +27,6 @@
 #include <stm32f091xc.h>
 #include <stdio.h>
 #include "dig_in.h"
-#include "uled.h"
 #include "analog_out.h"
 #include "usart.h"
 #include "usart.h"
@@ -148,7 +147,6 @@ int main(void) {
 
     // Initialize peripherals
     usart_init();
-    uled_init();
     button_init();
     analog_out_init(c4_samples, sample_cnt);
     set_blk_size(sample_cnt);
