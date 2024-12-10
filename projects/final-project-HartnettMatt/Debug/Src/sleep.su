@@ -1,0 +1,2 @@
+../Src/sleep.c:24:6:sleep_init	8	static
+../Src/sleep.c:29:6:enter_sleep	8	static,ignoring_inline_asm

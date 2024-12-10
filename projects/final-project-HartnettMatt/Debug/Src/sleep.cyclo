@@ -1,0 +1,2 @@
+../Src/sleep.c:24:6:sleep_init	1
+../Src/sleep.c:29:6:enter_sleep	1

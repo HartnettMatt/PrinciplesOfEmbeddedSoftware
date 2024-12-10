@@ -9,24 +9,24 @@
  * ****************************************************************************/
 
 /**
- * @file    dig_in.h
- * @brief Matt Hartnett's digital input header file.
+ * @file    sleep.c
+ * @brief Matt Hartnett's sleep file.
  *
  * @author  Matt Hartnett
- * @date    12/06/2024
+ * @date    12/07/2024
  *
  */
 
-#ifndef DIG_IN_H
-#define DIG_IN_H
+#include <stm32f091xc.h>
+#include "sleep.h"
+#include "utilities.h"
 
-#include <stdint.h>
+void sleep_init(void) {
+    // Ensure low-power sleep mode (default mode without deep sleep)
+    MODIFY_FIELD(SCB->SCR, SCB_SCR_SLEEPDEEP, 0);
+}
 
-#define PB3_READ_MSK	(GPIO_IDR_3)
-#define PB3_READ_OFFSET 3
-// TODO: write comments
-int dig_in_init(void);
-
-int dig_in_read(void);
-
-#endif // DIG_IN_H
+void enter_sleep(void) {
+    // Enter sleep mode by executing the WFI instruction
+    __WFI(); // Wait for interrupt
+}

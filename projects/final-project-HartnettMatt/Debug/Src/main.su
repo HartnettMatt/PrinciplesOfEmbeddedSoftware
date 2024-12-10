@@ -1,5 +1,5 @@
 ../CMSIS/core_cm0.h:732:22:__NVIC_SetPriority	24	static
-../Src/main.c:59:6:Init_SysTick	8	static
-../Src/main.c:83:6:SysTick_Handler	8	static
-../Src/main.c:103:5:user_input	24	static
-../Src/main.c:127:5:main	168	static
+../Src/main.c:67:6:Init_SysTick	8	static
+../Src/main.c:91:6:SysTick_Handler	8	static
+../Src/main.c:113:5:user_input	24	static
+../Src/main.c:137:5:main	168	static

@@ -11,7 +11,7 @@
 /**
  * @file    main.c
  * @brief Matt Hartnett's main file for ECEN5813 Final Project
- * TODO: Finish this
+ * TODO: Finish this description
  *
  * @author  Matt Hartnett
  * @date    12/3/2024
@@ -30,6 +30,7 @@
 #include "process_time.h"
 #include "sine.h"
 #include "button.h"
+#include "sleep.h"
 
 #define F_SYS_CLK (48000000L)
 #define TXT_BUFFER_SIZE 128
@@ -39,13 +40,20 @@
 #define TONE_OFF_TIME 5
 #define TONE_PERIOD (TONE_ON_TIME + TONE_OFF_TIME)
 
+typedef enum {
+    ALARM_FLAG_IDLE,      // Alarm is idle - only on bootup when waiting for user input
+    ALARM_FLAG_ARMED,     // Alarm is armed
+    ALARM_FLAG_TRIGGERED, // Alarm has been triggered
+    ALARM_FLAG_RUNNING    // Alarm is running
+} alarm_flag_t;
+
 // Tone buffer
 uint16_t c4_samples[SINE_BUFFER_SIZE];
 
 // Keep track of time
 static int current_time = 0;
 static int alarm_time = 0;
-static int alarm_flag = 0;
+static alarm_flag_t alarm_flag = ALARM_FLAG_IDLE;
 static int tone_counter = 0;
 
 /**
@@ -86,9 +94,11 @@ void SysTick_Handler(void) {
     } else {
         current_time = 0;
     }
-    if (current_time == alarm_time) { // Start alarm
-        alarm_flag = 1;
-    } else if (alarm_flag == 2) {
+    // Start alarm
+    if (current_time == alarm_time) {
+        alarm_flag = ALARM_FLAG_TRIGGERED;
+        // If the alarm is running, manage alarm tone timing
+    } else if (alarm_flag == ALARM_FLAG_RUNNING) {
         if (tone_counter < TONE_PERIOD) {
             tone_counter++;
         } else {
@@ -139,8 +149,9 @@ int main(void) {
     uled_init();
     button_init();
     analog_out_init(c4_samples, sample_cnt);
-    dig_in_init();
     set_blk_size(sample_cnt);
+    dig_in_init();
+    sleep_init();
     // TODO: Do I need to use analog input or could I use digital input? (be careful with voltage levels, don't want to damage a pin)
     // Ask user for system parameters:
     char str_buf[TXT_BUFFER_SIZE]; // Recieve string buffer
@@ -156,6 +167,11 @@ int main(void) {
     // Systick occurs every 100ms to maintain responsivness when turning off the alarm
     current_time = 10 * time;
     time = -1;
+
+    // Start counting time immediatly - don't want to be inaccurate if user is slow
+    Init_SysTick();
+
+    // Ask for alarm time
     while (time == -1) {
         printf("When do you want to wake up?\r\n");
         str_size = user_input(str_buf, TXT_BUFFER_SIZE);
@@ -163,25 +179,22 @@ int main(void) {
     }
     alarm_time = 10 * time;
     printf("Goodnight! See you at %s\r\n", str_buf);
-
-    Init_SysTick();
-    // TODO: Figure out sleep and such
+    alarm_flag = ALARM_FLAG_ARMED;
 
     while (1) {
-        // TODO: Add logic for checking time and resetting and such
-
-        if (alarm_flag == 1) {
-            printf("Good morning!");
+        enter_sleep();
+        if (alarm_flag == ALARM_FLAG_TRIGGERED) {
+            printf("Good morning!\r\n");
             // Start the alarm
             analog_out_start();
-            alarm_flag = 2;
-        } else if (alarm_flag == 2) {
+            alarm_flag = ALARM_FLAG_RUNNING;
+        } else if (alarm_flag == ALARM_FLAG_RUNNING) {
             sensor_val = dig_in_read();
             // Alarm turn off condition
             if (read_button() == 1 || sensor_val == 1) {
                 analog_out_stop();
-                printf("Glad to see you awake!");
-                alarm_flag = 0;
+                printf("Glad to see you awake!\r\n");
+                alarm_flag = ALARM_FLAG_ARMED;
             } else {
                 if (tone_counter < TONE_ON_TIME) {
                     analog_out_start();
