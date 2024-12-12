@@ -32,3 +32,9 @@ void dig_in_init(void) {
 int dig_in_read(void){
     return (GPIOB->IDR & PB3_READ_MSK) >> PB3_READ_OFFSET;
 }
+
+void dig_in_test(void){
+    int val = (GPIOB->IDR & PB3_READ_MSK) >> PB3_READ_OFFSET;
+    printf("Current digital value: %d\r\n", val);
+}
+

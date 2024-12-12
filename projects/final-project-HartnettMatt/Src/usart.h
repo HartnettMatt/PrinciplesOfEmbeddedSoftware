@@ -22,6 +22,8 @@
 
 #include <stdint.h>
 
+#define POST_BUFFER_SIZE 64
+
 // User UART settings
 #define BAUD_RATE 9600
 #define DATA_SIZE 8 // Include any parity bits, so 8 data bits + 1 parity bit = 9 data_size
@@ -60,6 +62,15 @@
  *   1 for failure
  */
 int usart_init();
+
+/*
+ * Test basic USART functionality
+ *
+ * Parameters: None
+ *
+ * Returns: None
+ */
+void usart_test(void);
 
 /*
  * Interrupt handler for USART. Either load received character into rx_cb or transmit

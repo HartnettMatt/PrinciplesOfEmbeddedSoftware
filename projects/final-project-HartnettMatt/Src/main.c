@@ -21,9 +21,6 @@
  *
  */
 
-// TODO: add in debug mode and POST
-// TODO: Create state machine diagram
-
 #include <stm32f091xc.h>
 #include <stdio.h>
 #include "dig_in.h"
@@ -153,6 +150,14 @@ int main(void) {
     dig_in_init();
     sleep_init();
     systick_init();
+
+    // Power On Self Test (POST)
+    #ifdef DEBUG
+    printf("RUNNING POWER ON SELF TEST...\r\n");
+    usart_test();
+    dig_in_test();
+    printf("POWER ON SELF TEST COMPLETE\r\n");
+    #endif // DEBUG
 
     // Primary state machine loop:
     while (1) {

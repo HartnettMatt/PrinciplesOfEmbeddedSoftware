@@ -77,6 +77,16 @@ int usart_init() {
     return 0;
 }
 
+void usart_test(void){
+    char * str = "Testing direct USART printing\r\n";
+    usart_transmit(str, 32);
+    printf("Testing USART printing through printf function\r\n");
+    printf("Type 2 characters to test recieving blocking:\r\n");
+    char str_buf[POST_BUFFER_SIZE];
+    usart_receive_blocking(str_buf, 2);
+    printf("Characters entered: %s\r\n", str_buf);
+}
+
 // This code was copied from Alex Dean and modified by Matt Hartnett
 void USART2_IRQHandler(void) {
     uint8_t ch;

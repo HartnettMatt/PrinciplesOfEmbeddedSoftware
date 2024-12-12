@@ -43,4 +43,12 @@ void dig_in_init(void);
  */
 int dig_in_read(void);
 
+/**
+ * @brief Self test of digital input
+ *
+ * Prints the current logic level of PB3 as a boolean value (0 or 1).
+ *
+ */
+void dig_in_test(void);
+
 #endif // DIG_IN_H
